@@ -14,6 +14,7 @@ session_start();
     <meta charset="utf-8">
         <title>すなっくプリキュア タイトルジェネレータ</title>
         <link rel="stylesheet" href="./common/css/style.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script type="text/javascript" src="//webfont.fontplus.jp/accessor/script/fontplus.js?Zxms2-UqCwA%3D&box=Go~A~tQ3zN8%3D&aa=1&ab=2" charset="utf-8"></script>
     </head>
     <body class="screen-body">

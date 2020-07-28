@@ -42,10 +42,5 @@ if ($_POST['send'] === 'send') {
     <div><input type="text" name="dj_next_time" placeholder="次DJ時間" value="<?= $_SESSION['dj']['next']['time'] ?>"></div>
     <button type="submit" name="send" value="send">送出</button>
     </form>
-    <script>
-$(window).on('load', function() {
-    window.open('screen.php', 'screen');
-});
-    </script>
     </body>
 </html>
