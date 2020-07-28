@@ -6,7 +6,7 @@ $(window).on('load', function() {
 // ajax取得
 function getjson() {
     $.ajax({
-        url: '/update.php',
+        url: '/common/update.php',
         type: 'get',
         cache: false,
         dataType:'json',

@@ -1,7 +1,7 @@
 <?
 
 // 設定読み込み
-require dirname(__FILE__) . '/common/config.php';
+require dirname(__FILE__) . '/config.php';
 
 // セッションスタート
 session_set_cookie_params(SESSION_LIFETIME);
