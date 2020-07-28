@@ -9,16 +9,39 @@ session_start();
 
 if ($_POST['send'] === 'send') {
     // パラメータをセッションに入れる
-    $_SESSION['song']['series']['year'] = $_POST['song_series_year'];
-    $_SESSION['song']['series']['name'] = $_POST['song_series_name'];
-    $_SESSION['song']['album'] = $_POST['song_album'];
-    $_SESSION['song']['title'] = $_POST['song_title'];
-    $_SESSION['song']['artist'] = $_POST['song_artist'];
-    $_SESSION['dj']['current']['name'] = $_POST['dj_current_name'];
-    $_SESSION['dj']['next']['name'] = $_POST['dj_next_name'];
-    $_SESSION['dj']['next']['time'] = $_POST['dj_next_time'];
+    if ($_SESSION['song']['series']['year'] !== $_POST['song_series_year']) {
+        $_SESSION['song']['series']['year'] = $_POST['song_series_year'];
+        $_SESSION['song']['series']['year_updated'] = '1';
+    }
+    if ($_SESSION['song']['series']['name'] !== $_POST['song_series_name']) {
+        $_SESSION['song']['series']['name'] = $_POST['song_series_name'];
+        $_SESSION['song']['series']['name_updated'] = '1';
+    }
+    if ($_SESSION['song']['album'] !== $_POST['song_album']) {
+        $_SESSION['song']['album'] = $_POST['song_album'];
+        $_SESSION['song']['album_updated'] = '1';
+    }
+    if ($_SESSION['song']['title'] !== $_POST['song_title']) {
+        $_SESSION['song']['title'] = $_POST['song_title'];
+        $_SESSION['song']['title_updated'] = '1';
+    }
+    if ($_SESSION['song']['artist'] !== $_POST['song_artist']) {
+        $_SESSION['song']['artist'] = $_POST['song_artist'];
+        $_SESSION['song']['artist_updated'] = '1';
+    }
+    if ($_SESSION['dj']['current']['name'] !== $_POST['dj_current_name']) {
+        $_SESSION['dj']['current']['name'] = $_POST['dj_current_name'];
+        $_SESSION['dj']['current']['name_updated'] = '1';
+    }
+    if ($_SESSION['dj']['next']['name'] !== $_POST['dj_next_name']) {
+        $_SESSION['dj']['next']['name'] = $_POST['dj_next_name'];
+        $_SESSION['dj']['next']['name_updated'] = '1';
+    }
+    if ($_SESSION['dj']['next']['time'] !== $_POST['dj_next_time']) {
+        $_SESSION['dj']['next']['time'] = $_POST['dj_next_time'];
+        $_SESSION['dj']['next']['time_updated'] = '1';
+    }
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="ja">
