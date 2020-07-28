@@ -1,0 +1,104 @@
+.screen-body {
+    margin: 0;
+    background: black;
+}
+
+.screen-outer {
+    position: relative;
+    width: 100%;
+}
+
+.screen-outer:before {
+    content:"";
+    display: block;
+    padding-top: 56.25%;
+}
+
+.screen-inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: lime;
+}
+
+#left-top {
+    position: absolute;
+    left: 5vw;
+    top: 2.8125vw;
+    width: 56vw;
+}
+
+#left-bottom {
+    position: absolute;
+    left: 5vw;
+    bottom: 2.8125vw;
+    width: 90vw;
+}
+
+#right-top {
+    position: absolute;
+    right: 5vw;
+    top: 2.8125vw;
+    text-align: right;
+    width: 33vw;
+}
+
+.screen-title {
+    color: white;
+    text-shadow:
+    -0.1vw -0.2vw 0 black,
+    0 -0.2vw 0 black,
+    0.1vw -0.2vw 0 black,
+    -0.2vw -0.1vw 0 black,
+    -0.1vw -0.1vw 0 black,
+    0 -0.1vw 0 black,
+    0.1vw -0.1vw 0 black,
+    0.2vw -0.1vw 0 black,
+    -0.2vw 0 0 black,
+    -0.1vw 0 0 black,
+    0.1vw 0 0 black,
+    0.2vw 0 0 black,
+    -0.2vw 0.1vw 0 black,
+    -0.1vw 0.1vw 0 black,
+    0 0.1vw 0 black,
+    0.1vw 0.1vw 0 black,
+    0.2vw 0.1vw 0 black,
+    -0.1vw 0.2vw 0 black,
+    0 0.2vw 0 black,
+    0.1vw 0.2vw 0 black;
+}
+
+#song-title {
+    font-family: FOT-マティスえれがんと Pro EB;
+    font-size: 2.5vw;
+}
+
+#song-artist {
+    font-family: FOT-ハミング ProN M;
+    font-size: 1.5vw;
+    margin-top: 0.6vw;
+}
+
+#song-series {
+    font-family: FOT-ロダンNTLG Pro DB;
+    font-size: 1.5vw;
+}
+
+#song-album {
+    font-family: FOT-ロダンNTLG Pro DB;
+    font-size: 2vw;
+    margin-top: 0.6vw;
+}
+
+#dj-current {
+    font-family: FOT-コメット Std B;
+    font-size: 2.5vw;
+}
+
+#dj-next {
+    font-family: FOT-コメット Std B;
+    font-size: 1.5vw;
+    margin-top: 0.6vw;
+}
