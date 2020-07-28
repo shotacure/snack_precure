@@ -13,9 +13,7 @@ function getjson() {
         })
         .done(function(data) {
             // リロード処理
-            if (data != null) {
-                reloadfont(data);
-            }
+            reloadfont(data);
         })
         .fail(function(xhr) {
             // 失敗時はページをリロード
@@ -29,14 +27,7 @@ function getjson() {
 
 // 更新があればリロード
 function reloadfont(data) {
-    if (data['song']['series']['year_updated'] == '1' ||
-        data['song']['series']['name_updated'] == '1' ||
-        data['song']['album_updated'] == '1' ||
-        data['song']['title_updated'] == '1' ||
-        data['song']['artist_updated'] == '1' ||
-        data['dj']['current']['name_updated'] == '1' ||
-        data['dj']['next']['name_updated'] == '1' ||
-        data['dj']['next']['time_updated'] == '1') {
+    if (data['updated'] == '1') {
         location.reload(true);
     }
 }
