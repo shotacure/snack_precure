@@ -12,8 +12,10 @@ function getjson() {
         dataType:'json',
         })
         .done(function(data) {
-            // フォントリロード処理
-            reloadfont(data);
+            // リロード処理
+            if (data != null) {
+                reloadfont(data);
+            }
         })
         .fail(function(xhr) {
             // 失敗時はページをリロード
