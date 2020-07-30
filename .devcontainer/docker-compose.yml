@@ -21,6 +21,7 @@ services:
             MYSQL_ROOT_PASSWORD: just-for-testing
             MYSQL_DATABASE: snack_precure
             TZ: Asia/Tokyo
+        command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
         volumes:
             - ../.sql:/docker-entrypoint-initdb.d
 
