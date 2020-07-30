@@ -34,12 +34,12 @@ session_start();
                     </div>
                 </div>
                 <div id="left-bottom">
-                    <div id="song-title" class="screen-title">
+                    <div id="song-title<?= $_SESSION['song']['series']['year'] === '2019' ? '-startwinkle' : '' ?>" class="screen-title">
                         <?php if (!empty($_SESSION['song']['title'])) :?> 
                         <?= $_SESSION['song']['title'] ?>
                         <?php endif; ?> 
                     </div>
-                    <div id="song-artist" class="screen-title">
+                    <div id="song-artist<?= $_SESSION['song']['series']['year'] === '2019' ? '-startwinkle' : '' ?>" class="screen-title">
                         <?php if (!empty($_SESSION['song']['artist'])) :?> 
                         <?= $_SESSION['song']['artist'] ?>
                         <?php endif; ?> 
