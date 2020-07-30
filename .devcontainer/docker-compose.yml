@@ -3,6 +3,8 @@ version: "3"
 services: 
     php:
         build: .
+        environment:
+            TZ: Asia/Tokyo
         volumes:
             - ..:/workspace:cached
         ports:
