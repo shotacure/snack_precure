@@ -118,7 +118,7 @@ if ($_POST['send'] === 'send') {
     <div>楽曲</div>
     <div>
         <select name="song_id">
-            <option value="0"></option>
+            <option value=""></option>
 <?php
 
 // DB接続
@@ -141,7 +141,7 @@ $stmt->execute();
 // 結果をバインド
 $stmt->bind_result($row['song_id'], $row['song_title'], $row['series_id']);
 while ($stmt->fetch()) {
-    echo '            <option value="' . $row['song_id']. '"' . ($row['song_id'] === $_SESSION['song']['id'] ? ' selected' : '') . '>' . mb_substr($row['series_id'], 0, 4) . ': ' . $row['song_title'] . '</option>';
+    echo '            <option value="' . $row['song_id']. '"' . ($row['song_id'] === $_SESSION['song']['id'] ? ' selected' : '') . '>' . mb_substr($row['series_id'], 0, 4) . ': ' . $row['song_title'] . '</option>' . "\n";
 }
 
 // 取得できない場合はエラー
@@ -164,17 +164,18 @@ $mysqli->close();
     <div>
         <select name="dj_current_name">
             <option value=""></option>
-            <? foreach(DJ_LIST as $dj_current_name) : ?>
+<? foreach(DJ_LIST as $dj_current_name) : ?>
             <option value="<?= $dj_current_name ?>"<?= $dj_current_name === $_SESSION['dj']['current']['name'] ? ' selected' : '' ?>><?= $dj_current_name ?></option>
-            <? endforeach; ?>
-        </select>    </div>
+<? endforeach; ?>
+        </select>
+    </div>
     <div>次DJ</div>
     <div>
         <select name="dj_next_name">
             <option value=""></option>
-            <? foreach(DJ_LIST as $dj_next_name) : ?>
+<? foreach(DJ_LIST as $dj_next_name) : ?>
             <option value="<?= $dj_next_name ?>"<?= $dj_next_name === $_SESSION['dj']['next']['name'] ? ' selected' : '' ?>><?= $dj_next_name ?></option>
-            <? endforeach; ?>
+<? endforeach; ?>
         </select>
     </div>
     <div><input type="text" name="dj_next_time" placeholder="次DJ時間" value="<?= $_SESSION['dj']['next']['time'] ?>"></div>
