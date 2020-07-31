@@ -6,7 +6,7 @@ services:
         environment:
             TZ: Asia/Tokyo
         volumes:
-            - ..:/workspace:cached
+            - ../html:/workspace:cached
         ports:
             # For use with PHP (e.g. `php -S localhost:8080`)
             - "8080:8080"
