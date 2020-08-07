@@ -23,36 +23,47 @@ session_start();
             <div class="screen-inner">
                 <div id="left-top">
                     <div id="song-series" class="screen-title">
-                        <?php if (!empty($_SESSION['song']['series']['name'])) :?> 
+                        <?php if (!empty($_SESSION['song']['series']['name'])) : ?> 
                         <?= $_SESSION['song']['series']['year'] ?>『<?= $_SESSION['song']['series']['name'] ?>』
                         <?php endif; ?> 
                     </div>
                     <div id="song-album" class="screen-title">
-                        <?php if (!empty($_SESSION['song']['album'])) :?> 
+                        <?php if (!empty($_SESSION['song']['album'])) : ?> 
                         「<?= $_SESSION['song']['album'] ?>」
                         <?php endif; ?> 
                     </div>
                 </div>
                 <div id="left-bottom">
-                    <div id="song-title<?= $_SESSION['song']['series']['year'] === '2019' ? '-startwinkle' : '' ?>" class="screen-title">
-                        <?php if (!empty($_SESSION['song']['title'])) :?> 
+                <div id="song-title<?= $_SESSION['song']['series']['year'] === '2019' ? '-startwinkle' : '' ?>" class="screen-title">
+                        <?php if (!empty($_SESSION['song']['title'])) : ?> 
                         <?= $_SESSION['song']['title'] ?>
                         <?php endif; ?> 
                     </div>
+                    <div id="song-mno<?= $_SESSION['song']['series']['year'] === '2019' ? '-startwinkle' : '' ?>" class="screen-title">
+                        <?php if (!empty($_SESSION['song']['mno'])) : ?> 
+                        <?= $_SESSION['song']['mno'] ?>
+                        <?php endif; ?> 
+                    </div>
                     <div id="song-artist<?= $_SESSION['song']['series']['year'] === '2019' ? '-startwinkle' : '' ?>" class="screen-title">
-                        <?php if (!empty($_SESSION['song']['artist'])) :?> 
+                        <?php if (!empty($_SESSION['song']['artist'])) : ?> 
                         <?= $_SESSION['song']['artist'] ?>
+                        <?php elseif (!empty($_SESSION['song']['composer'])) : ?> 
+                            <?php if ($_SESSION['song']['composer'] === $_SESSION['song']['arranger']) : ?>
+                            音楽: <?= $_SESSION['song']['composer'] ?>
+                            <?php else : ?>
+                            音楽: <?= $_SESSION['song']['arranger'] ?> (作曲: <?= $_SESSION['song']['composer'] ?>)
+                            <?php endif; ?> 
                         <?php endif; ?> 
                     </div>
                 </div>
                 <div id="right-top">
                     <div id="dj-current" class="screen-title">
-                        <?php if (!empty($_SESSION['dj']['current']['name'])) :?> 
+                        <?php if (!empty($_SESSION['dj']['current']['name'])) : ?> 
                         DJ <?= $_SESSION['dj']['current']['name'] ?>
                         <?php endif; ?> 
                     </div>
                     <div id="dj-next" class="screen-title">
-                        <?php if (!empty($_SESSION['dj']['next']['name'])) :?> 
+                        <?php if (!empty($_SESSION['dj']['next']['name'])) : ?> 
                         Next<?= !empty($_SESSION['dj']['next']['time']) ? '(' . $_SESSION['dj']['next']['time'] . '～)' : '' ?> <?= $_SESSION['dj']['next']['name'] ?>
                         <?php endif; ?> 
                     </div>
