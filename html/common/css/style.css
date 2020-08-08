@@ -91,6 +91,18 @@
     font-size: 2.8vw;
 }
 
+#song-mno {
+    font-family: FOT-UD角ゴ_ラージ Pr6N M;
+    font-size: 2.0vw;
+    margin-top: 0.3vw;
+}
+
+#song-mno-startwinkle {
+    font-family: FOT-あおかね Std EB;
+    font-size: 2.0vw;
+    margin-top: 0.3vw;
+}
+
 #song-artist {
     font-family: FOT-ハミング ProN M;
     font-size: 2.0vw;
