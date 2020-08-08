@@ -40,8 +40,12 @@ session_start();
                         <?php endif; ?> 
                     </div>
                     <div id="song-mno<?= $_SESSION['song']['series']['year'] === '2019' ? '-startwinkle' : '' ?>" class="screen-title">
-                        <?php if (!empty($_SESSION['song']['mno'])) : ?> 
-                        <?= $_SESSION['song']['mno'] ?>
+                        <?php if (!empty($_SESSION['song']['mno'])) : ?>
+                            <?php if (!empty($_SESSION['song']['menu'])) : ?>
+                            (<?= $_SESSION['song']['mno'] ?> [<?= $_SESSION['song']['menu'] ?>])
+                            <?php else : ?>
+                                (<?= $_SESSION['song']['mno'] ?>)
+                            <?php endif; ?> 
                         <?php endif; ?> 
                     </div>
                     <div id="song-artist<?= $_SESSION['song']['series']['year'] === '2019' ? '-startwinkle' : '' ?>" class="screen-title">
