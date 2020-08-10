@@ -83,6 +83,7 @@ class PrecureMusicData
         $result['disc_title'] = str_replace('~', '～', $result['disc_title']);
         $result['disc_title'] = str_replace(' [CD+DVD盤]', '', $result['disc_title']);
         $result['song_title'] = str_replace('~', '～', $result['song_title']);
+        $result['song_title'] = str_replace('!', '！', $result['song_title']);
 
         // 返却
         return $result;
@@ -148,6 +149,7 @@ class PrecureMusicData
         $result['disc_title'] = str_replace('~', '～', $result['disc_title']);
         $result['disc_title'] = str_replace(' [CD+DVD盤]', '', $result['disc_title']);
         $result['track_title'] = str_replace('~', '～', $result['track_title']);
+        $result['track_title'] = str_replace('!', '！', $result['track_title']);
         $result['m_no_detail'] = (!preg_match('/^_temp_\d{6}$/', $result['m_no_detail']) ? $result['m_no_detail'] : '');
         $result['menu'] = str_replace('~', '～', $result['menu']);
 
