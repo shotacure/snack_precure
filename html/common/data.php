@@ -407,7 +407,7 @@ class PrecureMusicData
             INNER JOIN tracks
                 ON musics.disc_id = tracks.disc_id AND musics.track_no = tracks.track_no
             WHERE musics.disc_id = ?
-            ORDER BY musics.series_id ASC, musics.rec_session ASC, musics.m_no_detail ASC, musics.disc_id ASC, musics.track_no ASC;");
+            ORDER BY musics.track_no ASC;");
 
             $stmt->bind_param(
                 's',
