@@ -345,6 +345,8 @@ class PrecureMusicData
             FROM discs
             INNER JOIN tracks
                 ON discs.disc_id = tracks.disc_id
+            INNER JOIN musics
+                ON discs.disc_id = musics.disc_id
             WHERE tracks.track_class = 'BGM'
             GROUP BY discs.disc_id
             ORDER BY discs.disc_id ASC;");
