@@ -2,40 +2,40 @@ $(function() {
     // 歌曲シリーズリスト
     $('#song_series_id').change(function() {
         $('#song_id').prop('disabled', true)
-        $('#searchcondition').val('song_series_id')
         $('#mode').val('search')
+        $('#searchcondition').val('song_series_id')
         $('form').submit()
     });
 
     // 歌曲ディスクリスト
     $('#song_disc_id').change(function() {
         $('#song_id').prop('disabled', true)
-        $('#searchcondition').val('song_disc_id')
         $('#mode').val('search')
+        $('#searchcondition').val('song_disc_id')
         $('form').submit()
     });
 
     // 歌曲曲名
     $('#song_title').change(function() {
         $('#song_id').prop('disabled', true)
-        $('#searchcondition').val('song_title')
         $('#mode').val('search')
+        $('#searchcondition').val('song_title')
         $('form').submit()
     });
 
     // 歌曲歌手
     $('#song_singer_name').change(function() {
         $('#song_id').prop('disabled', true)
-        $('#searchcondition').val('song_singer_name')
         $('#mode').val('search')
+        $('#searchcondition').val('song_singer_name')
         $('form').submit()
     });
 
     // 歌曲条件クリア
     $('#song_clear').click(function() {
         $('#song_id').prop('disabled', true)
-        $('#searchcondition').val('')
         $('#mode').val('search')
+        $('#searchcondition').val('')
         $('form').submit()
     });    
 
@@ -51,32 +51,32 @@ $(function() {
     // 劇伴シリーズリスト
     $('#bgm_series_id').change(function() {
         $('#bgm_id').prop('disabled', true)
-        $('#searchcondition').val('bgm_series_id')
         $('#mode').val('search')
+        $('#searchcondition').val('bgm_series_id')
         $('form').submit()
     });
 
     // 劇伴ディスクリスト
     $('#bgm_disc_id').change(function() {
         $('#bgm_id').prop('disabled', true)
-        $('#searchcondition').val('bgm_disc_id')
         $('#mode').val('search')
+        $('#searchcondition').val('bgm_disc_id')
         $('form').submit()
     });
 
     // 劇伴曲名
     $('#bgm_title').change(function() {
         $('#bgm_id').prop('disabled', true)
-        $('#searchcondition').val('bgm_title')
         $('#mode').val('search')
+        $('#searchcondition').val('bgm_title')
         $('form').submit()
     });
 
     // 劇伴条件クリア
     $('#bgm_clear').click(function() {
         $('#bgm_id').prop('disabled', true)
-        $('#searchcondition').val('')
         $('#mode').val('search')
+        $('#searchcondition').val('')
         $('form').submit()
     });    
 
@@ -100,6 +100,7 @@ $(function() {
     $('#music_clear').click(function() {
         $('#mode').val('send')
         $('#musictype').val('')
+        $('#searchcondition').val('')
         $('form').submit()
     });
 });
