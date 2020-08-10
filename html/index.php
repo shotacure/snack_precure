@@ -13,9 +13,9 @@ session_start();
 // インスタンス
 $data = new PrecureMusicData();
 
-if ($_POST['send'] === 'send') {
+if ($_POST['mode'] === 'send') {
     // 送出モード
-    if ($_POST['musictype'] === 'Vocal') {
+    if ($_POST['musictype'] === 'Vocal' && !empty($_POST["song_id"])) {
         // 歌曲指定時
 
         // 歌曲データ取得
@@ -36,7 +36,7 @@ if ($_POST['send'] === 'send') {
         $_SESSION['song']['composer'] = '';
         $_SESSION['song']['arranger'] = '';
 
-    } elseif ($_POST['musictype'] === 'BGM') {
+    } elseif ($_POST['musictype'] === 'BGM' && !empty($_POST["bgm_id"])) {
         // 劇伴指定時
 
         // 劇伴データ取得
@@ -79,7 +79,7 @@ if ($_POST['send'] === 'send') {
     // 更新フラグ
     $_SESSION['updated'] = '1';
 
-} else if ($_POST['send'] === 'search') {
+} else if ($_POST['mode'] === 'search') {
     // 検索条件設定時
     $_SESSION['search']['song_disc_id'] = '';
     $_SESSION['search']['song_series_id'] = '';
@@ -90,9 +90,9 @@ if ($_POST['send'] === 'send') {
     $_SESSION['search']['bgm_series_id'] = '';
     $_SESSION['search']['bgm_title'] = '';
 
-    $_SESSION['search']['condition'] = $data->getEscapeString($_POST['search']);
+    $_SESSION['search']['condition'] = $data->getEscapeString($_POST['searchcondition']);
 
-    if ($_POST['search'] !== '') {
+    if ($_POST[$_SESSION['search']['condition']] !== '') {
         $_SESSION['search'][$_SESSION['search']['condition']] = $data->getEscapeString($_POST[$_SESSION['search']['condition']]);
     }
 }
@@ -104,13 +104,13 @@ if ($_POST['send'] === 'send') {
         <title>すなっくプリキュア タイトルジェネレータ</title>
         <link rel="stylesheet" href="./common/css/style.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="./common/scripts/index.js"></script>
     </head>
     <body>
     <form method="post">
     <div>シリーズ</div>
     <div>
-        <input type="radio" name="search" value="song_series_id" <?= ($_SESSION['search']['condition'] === 'song_series_id' ? ' checked="checked"' : '') ?>>
-        <select name="song_series_id">
+        <select id="song_series_id" name="song_series_id">
             <option value=""></option>
 <?php foreach($data->getSongSeriesList() as $series_id => $series_title) : ?>
             <option value="<?= $series_id ?>"<?= ($series_id == $_SESSION['search']['song_series_id'] ? ' selected' : '') ?>><?= mb_substr($series_id, 0, 4) ?>: <?= $series_title ?></option>
@@ -119,8 +119,7 @@ if ($_POST['send'] === 'send') {
     </div>
     <div>ディスク</div>
     <div>
-        <input type="radio" name="search" value="song_disc_id" <?= ($_SESSION['search']['condition'] === 'song_disc_id' ? ' checked="checked"' : '') ?>>
-        <select name="song_disc_id">
+        <select id="song_disc_id" name="song_disc_id">
             <option value=""></option>
 <?php foreach($data->getoSongDiscList() as $disc_id => $row) : ?>
             <option value="<?= $disc_id ?>"<?= ($disc_id == $_SESSION['search']['song_disc_id'] ? ' selected' : '') ?>><?= (!empty($row['series_id']) ? mb_substr($row['series_id'], 0, 4) . '' : '0000') ?>: <?= $row['disc_title'] ?></option>
@@ -128,21 +127,19 @@ if ($_POST['send'] === 'send') {
         </select>
     </div>
     <div>
-        <input type="radio" name="search" value="song_title" <?= ($_SESSION['search']['condition'] === 'song_title' ? ' checked="checked"' : '') ?>>
-        <input type="text" name="song_title" placeholder="曲名" value="<?= $_SESSION['search']['song_title'] ?>">
+        <input type="text" id="song_title" name="song_title" placeholder="曲名" value="<?= $_SESSION['search']['song_title'] ?>">
     </div>
     <div>
-        <input type="radio" name="search" value="song_singer_name" <?= ($_SESSION['search']['condition'] === 'song_singer_name' ? ' checked="checked"' : '') ?>>
-        <input type="text" name="song_singer_name" placeholder="歌手" value="<?= $_SESSION['search']['song_singer_name'] ?>">
+        <input type="text" id="song_singer_name" name="song_singer_name" placeholder="歌手" value="<?= $_SESSION['search']['song_singer_name'] ?>">
     </div>
-    <div><input type="radio" name="search" value="" <?= (empty($_SESSION['search']['condition']) ? ' checked="checked"' : '') ?>>条件クリア</div>
-    <button type="submit" name="send" value="search">歌曲検索</button>
     <div>
-        <input type="radio" name="musictype" value="Vocal" <?= ($_SESSION['song']['musictype'] === 'Vocal' ? ' checked="checked"' : '') ?>>
+        <button type="button" id="song_clear">歌曲条件クリア</button>
+    </div>
+    <div>
         歌曲
     </div>
     <div>
-        <select name="song_id">
+        <select id="song_id" name="song_id">
             <option value=""></option>
 <?php foreach($data->getSongSearchList($_SESSION['search']) as $song_id => $row) : ?>
             <option value="<?= $song_id ?>"<?= ($song_id === $_SESSION['song']['id'] ? ' selected' : '') ?>><?= mb_substr($row['series_id'], 0, 4) ?>: <?= $row['song_title'] ?></option>
@@ -151,8 +148,7 @@ if ($_POST['send'] === 'send') {
     </div>
     <div>シリーズ</div>
     <div>
-        <input type="radio" name="search" value="bgm_series_id" <?= ($_SESSION['search']['condition'] === 'bgm_series_id' ? ' checked="checked"' : '') ?>>
-        <select name="bgm_series_id">
+        <select id="bgm_series_id" name="bgm_series_id">
             <option value=""></option>
 <?php foreach($data->getBGMSeriesList() as $series_id => $series_title) : ?>
             <option value="<?= $series_id ?>"<?= ($series_id == $_SESSION['search']['bgm_series_id'] ? ' selected' : '') ?>><?= mb_substr($series_id, 0, 4) ?>: <?= $series_title ?></option>
@@ -161,8 +157,7 @@ if ($_POST['send'] === 'send') {
     </div>
     <div>ディスク</div>
     <div>
-        <input type="radio" name="search" value="bgm_disc_id" <?= ($_SESSION['search']['condition'] === 'bgm_disc_id' ? ' checked="checked"' : '') ?>>
-        <select name="bgm_disc_id">
+        <select id="bgm_disc_id" name="bgm_disc_id">
             <option value=""></option>
 <?php foreach($data->getBGMDiscList() as $disc_id => $row) : ?>
             <option value="<?= $disc_id ?>"<?= ($disc_id == $_SESSION['search']['bgm_disc_id'] ? ' selected' : '') ?>><?= (!empty($row['series_id']) ? mb_substr($row['series_id'], 0, 4) . '' : '0000') ?>: <?= $row['disc_title'] ?></option>
@@ -170,26 +165,21 @@ if ($_POST['send'] === 'send') {
         </select>
     </div>
     <div>
-        <input type="radio" name="search" value="bgm_title" <?= ($_SESSION['search']['condition'] === 'bgm_title' ? ' checked="checked"' : '') ?>>
-        <input type="text" name="bgm_title" placeholder="曲名" value="<?= $_SESSION['search']['bgm_title'] ?>">
+        <input type="text" id="bgm_title" name="bgm_title" placeholder="曲名" value="<?= $_SESSION['search']['bgm_title'] ?>">
     </div>
-    <div><input type="radio" name="search" value="" <?= (empty($_SESSION['search']['condition']) ? ' checked="checked"' : '') ?>>条件クリア</div>
-    <button type="submit" name="send" value="search">劇伴検索</button>
     <div>
-        <input type="radio" name="musictype" value="BGM" <?= ($_SESSION['song']['musictype'] === 'BGM' ? ' checked="checked"' : '') ?>>
+        <button type="button" id="bgm_clear">劇伴条件クリア</button>
+    </div>
+    <div>
         BGM
     </div>
     <div>
-        <select name="bgm_id">
+        <select id="bgm_id" name="bgm_id">
             <option value=""></option>
 <?php foreach($data->getBGMSearchList($_SESSION['search']) as $bgm_id => $row) : ?>
-             <option value="<?= $bgm_id ?>"<?= ($bgm_id === $_SESSION['song']['id'] ? ' selected' : '') ?>><?= mb_substr($row['series_id'], 0, 4) ?>:<?= (!preg_match('/^_temp_\d{6}$/', $row['m_no_detail']) ? $row['m_no_detail'] : '') ?> <?= $row['track_title'] ?></option>
+            <option value="<?= $bgm_id ?>"<?= ($bgm_id === $_SESSION['song']['id'] ? ' selected' : '') ?>><?= mb_substr($row['series_id'], 0, 4) ?>:<?= (!preg_match('/^_temp_\d{6}$/', $row['m_no_detail']) ? $row['m_no_detail'] : '') ?> <?= $row['track_title'] ?></option>
 <?php endforeach; ?>
         </select>
-    </div>
-    <div>
-        <input type="radio" name="musictype" value="" <?= (empty($_SESSION['song']['musictype']) ? ' checked="checked"' : '') ?>>
-        楽曲クリア
     </div>
     <div>現在DJ</div>
     <div>
@@ -210,7 +200,11 @@ if ($_POST['send'] === 'send') {
         </select>
     </div>
     <div><input type="text" name="dj_next_time" placeholder="次DJ時間" value="<?= $_SESSION['dj']['next']['time'] ?>"></div>
-    <button type="submit" name="send" value="send">送出</button>
+    <button type="button" id="send">送出</button>
+    <button type="button" id="music_clear">楽曲クリア</button>
+    <input type="hidden" id="mode" name="mode" value="<?= $_POST['mode'] ?>">
+    <input type="hidden" id="musictype" name="musictype" value="<?= $_SESSION['song']['musictype'] ?>">
+    <input type="hidden" id="searchcondition" name="searchcondition" value="<?= $_SESSION['search']['condition'] ?>">
     </form>
     </body>
 </html>
