@@ -221,7 +221,7 @@ class PrecureMusicData
     // 歌曲検索一覧取得
     public function getSongSearchList($search_condition) {
         // クエリ
-        if ($search_condition['condition'] === 'song_series_id') {
+        if ($search_condition['condition'] === 'song_series_id' && !empty($search_condition['song_series_id'])) {
             // シリーズ指定
             $stmt = $this->mysqli->prepare("SELECT songs.song_id
                 ,songs.song_title
@@ -234,7 +234,7 @@ class PrecureMusicData
                 's',
                 $search_condition['song_series_id'],
             );
-        } else if ($search_condition['condition'] === 'song_disc_id') {
+        } else if ($search_condition['condition'] === 'song_disc_id' && !empty($search_condition['song_disc_id'])) {
             // ディスク指定
             $stmt = $this->mysqli->prepare("SELECT tracks.song_id
                 ,songs.song_title
@@ -252,7 +252,7 @@ class PrecureMusicData
                 's',
                 $search_condition['song_disc_id'],
             );
-        } else if ($search_condition['condition'] === 'song_title') {
+        } else if ($search_condition['condition'] === 'song_title' && !empty($search_condition['song_title'])) {
             // 曲名指定
             $stmt = $this->mysqli->prepare("SELECT songs.song_id
                 ,songs.song_title
@@ -266,7 +266,7 @@ class PrecureMusicData
                 's',
                 $param,
             );
-        } else if ($search_condition['condition'] === 'song_singer_name') {
+        } else if ($search_condition['condition'] === 'song_singer_name' && !empty($search_condition['song_singer_name'])) {
             // 歌手指定
             $stmt = $this->mysqli->prepare("SELECT songs.song_id
                 ,songs.song_title
@@ -371,7 +371,7 @@ class PrecureMusicData
     // 劇伴検索一覧取得
     public function getBGMSearchList($search_condition) {
         // クエリ
-        if ($search_condition['condition'] === 'bgm_series_id') {
+        if ($search_condition['condition'] === 'bgm_series_id' && !empty($search_condition['bgm_series_id'])) {
             // シリーズ指定
             $stmt = $this->mysqli->prepare("SELECT musics.disc_id,
                 musics.track_no,
@@ -392,7 +392,7 @@ class PrecureMusicData
                 's',
                 $search_condition['bgm_series_id'],
             );
-        } else if ($search_condition['condition'] === 'bgm_disc_id') {
+        } else if ($search_condition['condition'] === 'bgm_disc_id' && !empty($search_condition['bgm_disc_id'])) {
             // ディスク指定
             $stmt = $this->mysqli->prepare("SELECT musics.disc_id,
                 musics.track_no,
@@ -413,7 +413,7 @@ class PrecureMusicData
                 's',
                 $search_condition['bgm_disc_id'],
             );
-        } else if ($search_condition['condition'] === 'bgm_title') {
+        } else if ($search_condition['condition'] === 'bgm_title' && !empty($search_condition['bgm_title'])) {
             // 曲名指定
             $stmt = $this->mysqli->prepare("SELECT musics.disc_id,
                 musics.track_no,
