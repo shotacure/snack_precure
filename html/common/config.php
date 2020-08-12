@@ -1,7 +1,7 @@
 <?php
 
 // 接続設定
-require __DIR__ . '/conn.php';
+require_once __DIR__ . '/conn.php';
 
 // セッション寿命(秒)
 define('SESSION_LIFETIME', 1800);
