@@ -75,6 +75,7 @@ if ($_POST['mode'] === 'send') {
     $_SESSION['dj']['current']['name'] = $data->getEscapeString($_POST['dj_current_name']);
     $_SESSION['dj']['next']['name'] = $data->getEscapeString($_POST['dj_next_name']);
     $_SESSION['dj']['next']['time'] = $data->getEscapeString($_POST['dj_next_time']);
+    $_SESSION['dj']['corner'] = $data->getEscapeString($_POST['dj_corner']);
 
     // 更新フラグ
     $_SESSION['updated'] = '1';
@@ -89,6 +90,7 @@ if ($_POST['mode'] === 'send') {
     $_SESSION['search']['bgm_disc_id'] = '';
     $_SESSION['search']['bgm_series_id'] = '';
     $_SESSION['search']['bgm_title'] = '';
+    $_SESSION['search']['bgm_mno'] = '';
 
     $_SESSION['search']['condition'] = $data->getEscapeString($_POST['searchcondition']);
 
@@ -203,9 +205,13 @@ if ($_POST['mode'] === 'send') {
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-md-2">曲名</label>
-                                    <div class="col-md-8">
+                                <label class="control-label col-md-2">曲名</label>
+                                    <div class="col-md-3">
                                         <input type="text" id="bgm_title" name="bgm_title" class="form-control" value="<?= $_SESSION['search']['bgm_title'] ?>">
+                                    </div>
+                                    <label class="control-label col-md-2">Mナンバー</label>
+                                    <div class="col-md-3">
+                                        <input type="text" id="bgm_mno" name="bgm_mno" class="form-control" value="<?= $_SESSION['search']['bgm_mno'] ?>">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -249,8 +255,8 @@ if ($_POST['mode'] === 'send') {
                                     <div class="col-md-4">
                                         <select name="dj_corner" class="form-control">
                                             <option value=""></option>
-                                            <? foreach(DJ_LIST as $dj_current_name) : ?>
-                                            <option value="<?= $dj_current_name ?>"<?= $dj_current_name === $_SESSION['dj']['current']['name'] ? ' selected' : '' ?>><?= $dj_current_name ?></option>
+                                            <? foreach(CORNER_LIST as $dj_corner_id => $dj_corner_name) : ?>
+                                            <option value="<?= $dj_corner_id ?>"<?= $dj_corner_id === $_SESSION['dj']['corner'] ? ' selected' : '' ?>><?= $dj_corner_name ?></option>
                                             <? endforeach; ?>
                                         </select>
                                     </div>

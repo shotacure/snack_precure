@@ -44,6 +44,7 @@ $(function() {
         $('#bgm_series_id').val('')
         $('#bgm_disc_id').val('')
         $('#bgm_title').val('')
+        $('#bgm_no').val('')
         $('#bgm_id').val('')
         $('#musictype').val('Vocal')
     });
@@ -69,6 +70,14 @@ $(function() {
         $('#bgm_id').prop('disabled', true)
         $('#mode').val('search')
         $('#searchcondition').val('bgm_title')
+        $('form').submit()
+    });
+
+    // 劇伴曲名
+    $('#bgm_mno').change(function() {
+        $('#bgm_id').prop('disabled', true)
+        $('#mode').val('search')
+        $('#searchcondition').val('bgm_mno')
         $('form').submit()
     });
 
