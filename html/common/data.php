@@ -1,7 +1,7 @@
 <?php
 
 // 設定読み込み
-require dirname(__FILE__) . '/config.php';
+require __DIR__ . '/config.php';
 
 class PrecureMusicData
 {

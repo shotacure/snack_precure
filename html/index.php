@@ -1,10 +1,10 @@
 <?php
 
 // 設定読み込み
-require dirname(__FILE__) . '/common/config.php';
+require __DIR__ . '/common/config.php';
 
 // データクラス読み込み
-require dirname(__FILE__) . '/common/data.php';
+require __DIR__ . '/common/data.php';
 
 // セッションスタート
 session_set_cookie_params(SESSION_LIFETIME);
