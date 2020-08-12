@@ -70,6 +70,11 @@ session_start();
                         <?php if (!empty($_SESSION['dj']['next']['name'])) : ?> 
                         Next<?= !empty($_SESSION['dj']['next']['time']) ? '(' . $_SESSION['dj']['next']['time'] . '～)' : '' ?> <?= $_SESSION['dj']['next']['name'] ?>
                         <?php endif; ?> 
+                    <div id="dj-corner">
+                        <?php if (!empty($_SESSION['dj']['corner'])) : ?> 
+                        <img id="corner-img" src="./common/img/<?= $_SESSION['dj']['corner'] ?>@0.5x.png">
+                        <?php endif; ?> 
+                    </div>
                     </div>
                 </div>
             </div>
