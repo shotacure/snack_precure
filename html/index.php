@@ -138,7 +138,7 @@ if ($_POST['mode'] === 'send') {
                                         <select id="song_disc_id" name="song_disc_id" class="form-control">
                                             <option value=""></option>
                                             <?php foreach($data->getoSongDiscList() as $disc_id => $row) : ?>
-                                            <option value="<?= $disc_id ?>"<?= ($disc_id == $_SESSION['search']['song_disc_id'] ? ' selected' : '') ?>><?= (!empty($row['series_id']) ? mb_substr($row['series_id'], 0, 4) . '' : '0000') ?>: <?= $row['disc_title'] ?></option>
+                                            <option value="<?= $disc_id ?>"<?= ($disc_id == $_SESSION['search']['song_disc_id'] ? ' selected' : '') ?>><?= (!empty($row['series_id']) ? mb_substr($row['series_id'], 0, 4) : '0000') ?>: <?= $row['disc_title'] ?></option>
                                             <?php endforeach; ?>
                                         </select>
                                     </div>
