@@ -145,13 +145,11 @@ if ($_POST['mode'] === 'send') {
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-md-2">曲名</label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-3">
                                         <input type="text" id="song_title" name="song_title" class="form-control" value="<?= $_SESSION['search']['song_title'] ?>">
                                     </div>
-                                </div>
-                                <div class="form-group">
                                     <label class="control-label col-md-2">歌手</label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-3">
                                         <input type="text" id="song_singer_name" name="song_singer_name" class="form-control" value="<?= $_SESSION['search']['song_singer_name'] ?>">
                                     </div>
                                 </div>
@@ -239,8 +237,17 @@ if ($_POST['mode'] === 'send') {
                             <div class="form-horizontal">
                                 <div class="form-group">
                                     <label class="control-label col-md-2">現在DJ</label>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <select name="dj_current_name" class="form-control">
+                                            <option value=""></option>
+                                            <? foreach(DJ_LIST as $dj_current_name) : ?>
+                                            <option value="<?= $dj_current_name ?>"<?= $dj_current_name === $_SESSION['dj']['current']['name'] ? ' selected' : '' ?>><?= $dj_current_name ?></option>
+                                            <? endforeach; ?>
+                                        </select>
+                                    </div>
+                                    <label class="control-label col-md-2">コーナー</label>
+                                    <div class="col-md-4">
+                                        <select name="dj_corner" class="form-control">
                                             <option value=""></option>
                                             <? foreach(DJ_LIST as $dj_current_name) : ?>
                                             <option value="<?= $dj_current_name ?>"<?= $dj_current_name === $_SESSION['dj']['current']['name'] ? ' selected' : '' ?>><?= $dj_current_name ?></option>
@@ -250,7 +257,7 @@ if ($_POST['mode'] === 'send') {
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-md-2">次DJ</label>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <select name="dj_next_name" class="form-control">
                                             <option value=""></option>
                                             <? foreach(DJ_LIST as $dj_next_name) : ?>
@@ -258,10 +265,8 @@ if ($_POST['mode'] === 'send') {
                                             <? endforeach; ?>
                                         </select>
                                     </div>
-                                </div>
-                                <div class="form-group">
                                     <label class="control-label col-md-2">次DJ時間</label>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <input type="text" name="dj_next_time" class="form-control" value="<?= $_SESSION['dj']['next']['time'] ?>">
                                     </div>
                                 </div>
