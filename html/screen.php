@@ -32,6 +32,13 @@ session_start();
                         「<?= $_SESSION['song']['album'] ?>」
                         <?php endif; ?> 
                     </div>
+                    <div id="song-special" class="screen-title">
+                        <?php if ($_SESSION['song']['id'] == '504') : ?> 
+                        2020年9月9日(水) 発売
+                        <?php elseif ($_SESSION['song']['id'] == '506') : ?> 
+                        2020年10月28日(水) 発売
+                        <?php endif; ?> 
+                    </div>
                 </div>
                 <div id="left-bottom">
                 <div id="song-title<?= $_SESSION['song']['series']['year'] === '2019' ? '-startwinkle' : '' ?>" class="screen-title">
