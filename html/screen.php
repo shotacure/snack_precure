@@ -1,7 +1,7 @@
 <?php
 
 // 設定読み込み
-require dirname(__FILE__) . '/common/config.php';
+require_once __DIR__ . '/common/config.php';
 
 // セッションスタート
 session_set_cookie_params(SESSION_LIFETIME);
@@ -30,6 +30,13 @@ session_start();
                     <div id="song-album" class="screen-title">
                         <?php if (!empty($_SESSION['song']['album'])) : ?> 
                         「<?= $_SESSION['song']['album'] ?>」
+                        <?php endif; ?> 
+                    </div>
+                    <div id="song-special" class="screen-title">
+                        <?php if ($_SESSION['song']['id'] == '504') : ?> 
+                        2020年9月9日(水) 発売
+                        <?php elseif ($_SESSION['song']['id'] == '506') : ?> 
+                        2020年10月28日(水) 発売
                         <?php endif; ?> 
                     </div>
                 </div>
@@ -70,6 +77,11 @@ session_start();
                         <?php if (!empty($_SESSION['dj']['next']['name'])) : ?> 
                         Next<?= !empty($_SESSION['dj']['next']['time']) ? '(' . $_SESSION['dj']['next']['time'] . '～)' : '' ?> <?= $_SESSION['dj']['next']['name'] ?>
                         <?php endif; ?> 
+                    <div id="dj-corner">
+                        <?php if (!empty($_SESSION['dj']['corner'])) : ?> 
+                        <img id="corner-img" src="./common/img/<?= $_SESSION['dj']['corner'] ?>@0.5x.png">
+                        <?php endif; ?> 
+                    </div>
                     </div>
                 </div>
             </div>
