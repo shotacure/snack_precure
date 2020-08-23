@@ -82,12 +82,10 @@ if ($_POST['mode'] === 'send') {
 
 } else if ($_POST['mode'] === 'search') {
     // 検索条件設定時
-    $_SESSION['search']['song_disc_id'] = '';
     $_SESSION['search']['song_series_id'] = '';
     $_SESSION['search']['song_title'] = '';
     $_SESSION['search']['song_singer_name'] = '';
 
-    $_SESSION['search']['bgm_disc_id'] = '';
     $_SESSION['search']['bgm_series_id'] = '';
     $_SESSION['search']['bgm_title'] = '';
     $_SESSION['search']['bgm_mno'] = '';
@@ -130,17 +128,6 @@ if ($_POST['mode'] === 'send') {
                                             <option value=""></option>
                                             <?php foreach($data->getSongSeriesList() as $series_id => $series_title) : ?>
                                             <option value="<?= $series_id ?>"<?= ($series_id == $_SESSION['search']['song_series_id'] ? ' selected' : '') ?>><?= mb_substr($series_id, 0, 4) ?>: <?= $series_title ?></option>
-                                            <?php endforeach; ?>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-2">ディスク</label>
-                                    <div class="col-md-8">
-                                        <select id="song_disc_id" name="song_disc_id" class="form-control">
-                                            <option value=""></option>
-                                            <?php foreach($data->getoSongDiscList() as $disc_id => $row) : ?>
-                                            <option value="<?= $disc_id ?>"<?= ($disc_id == $_SESSION['search']['song_disc_id'] ? ' selected' : '') ?>><?= (!empty($row['series_id']) ? mb_substr($row['series_id'], 0, 4) : '0000') ?>: <?= $row['disc_title'] ?></option>
                                             <?php endforeach; ?>
                                         </select>
                                     </div>
@@ -189,17 +176,6 @@ if ($_POST['mode'] === 'send') {
                                             <option value=""></option>
                                             <?php foreach($data->getBGMSeriesList() as $series_id => $series_title) : ?>
                                             <option value="<?= $series_id ?>"<?= ($series_id == $_SESSION['search']['bgm_series_id'] ? ' selected' : '') ?>><?= mb_substr($series_id, 0, 4) ?>: <?= $series_title ?></option>
-                                            <?php endforeach; ?>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-2">ディスク</label>
-                                    <div class="col-md-8">
-                                        <select id="bgm_disc_id" name="bgm_disc_id" class="form-control">
-                                            <option value=""></option>
-                                            <?php foreach($data->getBGMDiscList() as $disc_id => $row) : ?>
-                                            <option value="<?= $disc_id ?>"<?= ($disc_id == $_SESSION['search']['bgm_disc_id'] ? ' selected' : '') ?>><?= (!empty($row['series_id']) ? mb_substr($row['series_id'], 0, 4) . '' : '0000') ?>: <?= $row['disc_title'] ?></option>
                                             <?php endforeach; ?>
                                         </select>
                                     </div>

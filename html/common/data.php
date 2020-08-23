@@ -84,6 +84,8 @@ class PrecureMusicData
         $result['disc_title'] = str_replace(' [CD+DVD盤]', '', $result['disc_title']);
         $result['song_title'] = str_replace('~', '～', $result['song_title']);
         $result['song_title'] = str_replace('!', '！', $result['song_title']);
+        $result['song_title'] = str_replace('！！！', '!!!', $result['song_title']);
+        $result['song_title'] = str_replace('！！', '!!', $result['song_title']);
 
         // 返却
         return $result;
@@ -150,6 +152,8 @@ class PrecureMusicData
         $result['disc_title'] = str_replace(' [CD+DVD盤]', '', $result['disc_title']);
         $result['track_title'] = str_replace('~', '～', $result['track_title']);
         $result['track_title'] = str_replace('!', '！', $result['track_title']);
+        $result['track_title'] = str_replace('！！！', '!!!', $result['track_title']);
+        $result['track_title'] = str_replace('！！', '!!', $result['track_title']);
         $result['m_no_detail'] = (!preg_match('/^_temp_\d{6}$/', $result['m_no_detail']) ? $result['m_no_detail'] : '');
         $result['menu'] = str_replace('~', '～', $result['menu']);
 
@@ -184,42 +188,6 @@ class PrecureMusicData
         return $result;
     }
 
-    // 歌曲ディスク一覧取得
-    public function getoSongDiscList() {
-        // クエリ
-        $stmt = $this->mysqli->prepare("SELECT discs.disc_id
-                ,discs.disc_title
-                ,discs.series_id
-            FROM discs
-            INNER JOIN tracks
-                ON discs.disc_id = tracks.disc_id
-            WHERE tracks.track_class = 'Vocal'
-                AND tracks.song_type IS NULL
-                AND (tracks.song_size IS NULL
-                    OR tracks.song_size = 'Full')
-                AND discs.disc_title NOT LIKE '%通常盤%'
-            GROUP BY discs.disc_id
-            ORDER BY discs.disc_id ASC;");
-
-        // ステートメントを実行
-        $stmt->execute();
-
-        // 結果をバインド
-        $stmt->bind_result($disc_id, $disc_title, $series_id);
-        while ($stmt->fetch()) {
-            $result[$disc_id] = array(
-                'disc_title' => $disc_title,
-                'series_id' => $series_id,
-            );
-        }
-
-        // ステートメントを閉じる
-        $stmt->close();
-
-        // 返却
-        return $result;
-    }
-
     // 歌曲検索一覧取得
     public function getSongSearchList($search_condition) {
         // クエリ
@@ -235,24 +203,6 @@ class PrecureMusicData
             $stmt->bind_param(
                 's',
                 $search_condition['song_series_id'],
-            );
-        } else if ($search_condition['condition'] === 'song_disc_id' && !empty($search_condition['song_disc_id'])) {
-            // ディスク指定
-            $stmt = $this->mysqli->prepare("SELECT tracks.song_id
-                ,songs.song_title
-                ,songs.series_id
-            FROM songs
-            INNER JOIN tracks
-                ON tracks.song_id = songs.song_id
-            WHERE tracks.disc_id = ?
-                AND tracks.song_type IS NULL
-                AND (tracks.song_size IS NULL
-                    OR tracks.song_size = 'Full')
-            ORDER BY tracks.track_no ASC;");
-
-            $stmt->bind_param(
-                's',
-                $search_condition['song_disc_id'],
             );
         } else if ($search_condition['condition'] === 'song_title' && !empty($search_condition['song_title'])) {
             // 曲名指定
@@ -338,40 +288,6 @@ class PrecureMusicData
         return $result;
     }
 
-    // 劇伴ディスク一覧取得
-    public function getBGMDiscList() {
-        // クエリの実行
-        $stmt = $this->mysqli->prepare("SELECT discs.disc_id
-                ,discs.disc_title
-                ,discs.series_id
-            FROM discs
-            INNER JOIN tracks
-                ON discs.disc_id = tracks.disc_id
-            INNER JOIN musics
-                ON discs.disc_id = musics.disc_id
-            WHERE tracks.track_class = 'BGM'
-            GROUP BY discs.disc_id
-            ORDER BY discs.disc_id ASC;");
-
-        // ステートメントを実行
-        $stmt->execute();
-
-        // 結果をバインド
-        $stmt->bind_result($disc_id, $disc_title, $series_id);
-        while ($stmt->fetch()) {
-            $result[$disc_id] = array(
-                'disc_title' => $disc_title,
-                'series_id' => $series_id,
-            );
-        }
-
-        // ステートメントを閉じる
-        $stmt->close();
-
-        // 返却
-        return $result;
-    }
-
     // 劇伴検索一覧取得
     public function getBGMSearchList($search_condition) {
         // クエリ
@@ -395,27 +311,6 @@ class PrecureMusicData
             $stmt->bind_param(
                 's',
                 $search_condition['bgm_series_id'],
-            );
-        } else if ($search_condition['condition'] === 'bgm_disc_id' && !empty($search_condition['bgm_disc_id'])) {
-            // ディスク指定
-            $stmt = $this->mysqli->prepare("SELECT musics.disc_id,
-                musics.track_no,
-                musics.series_id,
-                musics.m_no_detail,
-                tracks.track_title
-            FROM musics
-            INNER JOIN series
-                ON musics.series_id = series.series_id
-            INNER JOIN discs
-                ON musics.disc_id = discs.disc_id
-            INNER JOIN tracks
-                ON musics.disc_id = tracks.disc_id AND musics.track_no = tracks.track_no
-            WHERE musics.disc_id = ?
-            ORDER BY musics.track_no ASC;");
-
-            $stmt->bind_param(
-                's',
-                $search_condition['bgm_disc_id'],
             );
         } else if ($search_condition['condition'] === 'bgm_title' && !empty($search_condition['bgm_title'])) {
             // 曲名指定
