@@ -92,31 +92,14 @@
     font-size: 2.8vw;
 }
 
-#song-title-startwinkle {
-    font-family: FOT-あおかね Std EB;
-    font-size: 2.8vw;
-}
-
 #song-mno {
     font-family: FOT-UD角ゴ_ラージ Pr6N M;
     font-size: 2.0vw;
     margin-top: 0.3vw;
 }
 
-#song-mno-startwinkle {
-    font-family: FOT-あおかね Std EB;
-    font-size: 2.0vw;
-    margin-top: 0.3vw;
-}
-
 #song-artist {
     font-family: FOT-ハミング ProN M;
-    font-size: 2.0vw;
-    margin-top: 0.6vw;
-}
-
-#song-artist-startwinkle {
-    font-family: FOT-あおかね Std EB;
     font-size: 2.0vw;
     margin-top: 0.6vw;
 }
@@ -139,4 +122,16 @@
 #corner-img {
     width: 25vw;
     height: 12.5vw;
+}
+
+.goprincess {
+    font-family: FOT-パール Std L !important;
+}
+
+.alamode {
+    font-family: FOT-スランプ Std DB !important;
+}
+
+.startwinkle {
+    font-family: FOT-あおかね Std EB !important;
 }
