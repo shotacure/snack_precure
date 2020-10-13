@@ -33,20 +33,18 @@ session_start();
                         <?php endif; ?> 
                     </div>
                     <div id="song-special" class="screen-title">
-                        <?php if ($_SESSION['song']['id'] == '504') : ?> 
-                        2020年9月9日(水) 発売
-                        <?php elseif ($_SESSION['song']['id'] == '506') : ?> 
+                        <?php if ($_SESSION['song']['id'] == '506') : ?> 
                         2020年10月28日(水) 発売
                         <?php endif; ?> 
                     </div>
                 </div>
                 <div id="left-bottom">
-                <div id="song-title<?= $_SESSION['song']['series']['year'] === '2019' ? '-startwinkle' : '' ?>" class="screen-title">
+                <div id="song-title" class="screen-title <?= $_SESSION['song']['css'] ?>">
                         <?php if (!empty($_SESSION['song']['title'])) : ?> 
                         <?= $_SESSION['song']['title'] ?>
                         <?php endif; ?> 
                     </div>
-                    <div id="song-mno<?= $_SESSION['song']['series']['year'] === '2019' ? '-startwinkle' : '' ?>" class="screen-title">
+                    <div id="song-mno" class="screen-title <?= $_SESSION['song']['css'] ?>">
                         <?php if (!empty($_SESSION['song']['mno'])) : ?>
                             <?php if (!empty($_SESSION['song']['menu'])) : ?>
                             (<?= $_SESSION['song']['mno'] ?> [<?= $_SESSION['song']['menu'] ?>])
@@ -55,7 +53,7 @@ session_start();
                             <?php endif; ?> 
                         <?php endif; ?> 
                     </div>
-                    <div id="song-artist<?= $_SESSION['song']['series']['year'] === '2019' ? '-startwinkle' : '' ?>" class="screen-title">
+                    <div id="song-artist" class="screen-title <?= $_SESSION['song']['css'] ?>">
                         <?php if (!empty($_SESSION['song']['artist'])) : ?> 
                         <?= $_SESSION['song']['artist'] ?>
                         <?php elseif (!empty($_SESSION['song']['composer'])) : ?> 

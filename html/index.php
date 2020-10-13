@@ -24,6 +24,7 @@ if ($_POST['mode'] === 'send') {
         // 取得データをセッションに入れる
         $_SESSION['song']['musictype'] = $_POST['musictype'];
         $_SESSION['song']['id'] = $songdata['song_id'];
+        $_SESSION['song']['series']['id'] = $songdata['series_id'];
         $_SESSION['song']['series']['year'] = mb_substr($songdata['series_id'], 0, 4);
         $_SESSION['song']['series']['name'] = $songdata['series_title'];
         $_SESSION['song']['album'] = $songdata['disc_title'];
@@ -45,6 +46,7 @@ if ($_POST['mode'] === 'send') {
         // 取得データをセッションに入れる
         $_SESSION['song']['musictype'] = $_POST['musictype'];
         $_SESSION['song']['id'] = $bgmdata['disc_id'] . '_' . $bgmdata['track_no'];
+        $_SESSION['song']['series']['id'] = $bgmdata['series_id'];
         $_SESSION['song']['series']['year'] = mb_substr($bgmdata['series_id'], 0, 4);
         $_SESSION['song']['series']['name'] = $bgmdata['series_title'];
         $_SESSION['song']['album'] = $bgmdata['disc_title'];
@@ -69,6 +71,20 @@ if ($_POST['mode'] === 'send') {
         $_SESSION['song']['mno'] = '';
         $_SESSION['song']['composer'] = '';
         $_SESSION['song']['arranger'] = '';
+    }
+
+    // フォント変更
+    if ($_SESSION['song']['series']['id'] == '20150201' || $_SESSION['song']['series']['id'] == '20151031') {
+        $_SESSION['song']['css'] = 'goprincess';
+    }
+    elseif ($_SESSION['song']['series']['id'] == '20170205' || $_SESSION['song']['series']['id'] == '20171028') {
+        $_SESSION['song']['css'] = 'alamode';
+    }
+    elseif ($_SESSION['song']['series']['id'] == '20190203' || $_SESSION['song']['series']['id'] == '20191019') {
+        $_SESSION['song']['css'] = 'startwinkle';
+    }
+    else {
+        $_SESSION['song']['css'] = null;
     }
 
     // DJ情報
