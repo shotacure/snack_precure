@@ -45,6 +45,14 @@
     width: 28vw;
 }
 
+#right-bottom {
+    position: absolute;
+    right: 5vw;
+    bottom: 2.8125vw;
+    text-align: right;
+    width: 50vw;
+}
+
 .screen-title {
     color: white;
     text-shadow:
@@ -122,6 +130,12 @@
 #corner-img {
     width: 25vw;
     height: 12.5vw;
+}
+
+#artist-special {
+    font-family: FOT-ハミング ProN B;
+    font-size: 1.6vw;
+    margin-top: 0.6vw;
 }
 
 .goprincess {
