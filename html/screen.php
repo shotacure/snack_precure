@@ -24,7 +24,7 @@ session_start();
                 <div id="left-top">
                     <div id="song-series" class="screen-title">
                         <?php if (!empty($_SESSION['song']['series']['name'])) : ?> 
-                        <?= $_SESSION['song']['series']['year'] ?>『<?= $_SESSION['song']['series']['name'] ?>』
+                        <?= $_SESSION['song']['series']['year'] ?> 『<?= $_SESSION['song']['series']['name'] ?>』
                         <?php endif; ?> 
                     </div>
                     <div id="song-album" class="screen-title">
