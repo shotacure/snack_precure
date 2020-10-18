@@ -11,7 +11,7 @@ define('DJ_LIST', array('プリキュアおじさん', '100-200', '祥太'));
 
 // コーナーリスト
 define('CORNER_LIST', array(
-    'snack200816_summer' => '夏っぽい曲増量中',
+    'snack201018_movie' => '映画特集',
+    'snack201018_riekitagawa' => '北川理恵Special',
     'snack200816_request' => 'リクエスト強化中',
-    'snack200816_charasong' => 'キャラソンスペシャル',
 ));

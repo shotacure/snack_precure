@@ -10,8 +10,74 @@ require_once __DIR__ . '/common/data.php';
 session_set_cookie_params(SESSION_LIFETIME);
 session_start();
 
-// インスタンス
-$data = new PrecureMusicData();
+// エクストラ楽曲
+$extra_song = [
+    'de2005OP' => [
+        'series_year' => '2005',
+        'series_title' => 'PRETTY CURE',
+        'disc_title' => '',
+        'song_title' => 'NUR WIR BEIDE',
+        'singer_name' => 'Sina Schymanski',
+    ],
+    'de2005ED' => [
+        'series_year' => '2005',
+        'series_title' => 'PRETTY CURE',
+        'disc_title' => '',
+        'song_title' => 'TRÄUME, DIE ICH HAB\'',
+        'singer_name' => 'Petra Scheeser',
+    ],
+    '2007OPjazz' => [
+        'series_year' => '2009',
+        'series_title' => 'キラッと☆ジャズ ~KIRA JAZZ~',
+        'disc_title' => '',
+        'song_title' => 'プリキュア5、スマイル go go!',
+        'singer_name' => '8ch',
+    ],
+    '2008OPjazz' => [
+        'series_year' => '2008',
+        'series_title' => 'アニジャズ コンボ',
+        'disc_title' => '',
+        'song_title' => 'プリキュア5、フル・スロットル GoGo!',
+        'singer_name' => '野口 茜、若林美佐、野村綾乃',
+    ],
+    'kagome120' => [
+        'series_year' => '2018',
+        'series_title' => 'カゴメ創業120周年記念ソング',
+        'disc_title' => '',
+        'song_title' => '「進めカゴメ」（カゴメ創業120周年記念ソング）',
+        'singer_name' => '北川理恵',
+    ],
+    'nomore2020' => [
+        'series_year' => '2020',
+        'series_title' => 'NO MORE映画泥棒',
+        'disc_title' => '',
+        'song_title' => '「NO MORE映画泥棒」劇場用CM(2020)',
+        'singer_name' => '「映画館に行こう！」実行委員会',
+    ],
+];
+
+$extra_bgm = [
+    'toei_title' => [
+        'series_year' => '1996',
+        'series_title' => '金田一少年の事件簿(劇場版)',
+        'disc_title' => '',
+        'm_no_detail' => '',
+        'menu' => '',
+        'track_title' => '東映動画タイトル',
+        'composer_name' => '和田 薫',
+        'arranger_name' => '和田 薫', 
+    ],
+    'heapre_ep29' => [
+        'series_year' => '2020',
+        'series_title' => 'ヒーリングっど♥プリキュア',
+        'disc_title' => '',
+        'm_no_detail' => '',
+        'menu' => '',
+        'track_title' => '#29吹奏楽練習(ことえ&有斗)',
+        'composer_name' => '寺田志保',
+        'arranger_name' => '寺田志保', 
+    ],
+];
 
 if ($_POST['mode'] === 'send') {
     // 送出モード
@@ -19,13 +85,13 @@ if ($_POST['mode'] === 'send') {
         // 歌曲指定時
 
         // 歌曲データ取得
-        $songdata = $data->getSongData($_POST["song_id"]);
+        $songdata = $extra_song[$_POST["song_id"]];
 
         // 取得データをセッションに入れる
         $_SESSION['song']['musictype'] = $_POST['musictype'];
-        $_SESSION['song']['id'] = $songdata['song_id'];
-        $_SESSION['song']['series']['id'] = $songdata['series_id'];
-        $_SESSION['song']['series']['year'] = mb_substr($songdata['series_id'], 0, 4);
+        $_SESSION['song']['id'] = $_POST["song_id"];
+        $_SESSION['song']['series']['id'] = '';
+        $_SESSION['song']['series']['year'] = $songdata['series_year'];
         $_SESSION['song']['series']['name'] = $songdata['series_title'];
         $_SESSION['song']['album'] = $songdata['disc_title'];
         $_SESSION['song']['title'] = $songdata['song_title'];
@@ -41,13 +107,13 @@ if ($_POST['mode'] === 'send') {
         // 劇伴指定時
 
         // 劇伴データ取得
-        $bgmdata = $data->getBGMData($_POST["bgm_id"]);
+        $bgmdata = $extra_bgm[$_POST["bgm_id"]];
 
         // 取得データをセッションに入れる
         $_SESSION['song']['musictype'] = $_POST['musictype'];
-        $_SESSION['song']['id'] = $bgmdata['disc_id'] . '_' . $bgmdata['track_no'];
-        $_SESSION['song']['series']['id'] = $bgmdata['series_id'];
-        $_SESSION['song']['series']['year'] = mb_substr($bgmdata['series_id'], 0, 4);
+        $_SESSION['song']['id'] = $_POST["bgm_id"];
+        $_SESSION['song']['series']['id'] = '';
+        $_SESSION['song']['series']['year'] = $bgmdata['series_year'];
         $_SESSION['song']['series']['name'] = $bgmdata['series_title'];
         $_SESSION['song']['album'] = $bgmdata['disc_title'];
         $_SESSION['song']['title'] = '♪' . $bgmdata['track_title'];
@@ -74,43 +140,17 @@ if ($_POST['mode'] === 'send') {
     }
 
     // フォント変更
-    if ($_SESSION['song']['series']['id'] == '20150201' || $_SESSION['song']['series']['id'] == '20151031') {
-        $_SESSION['song']['css'] = 'goprincess';
-    }
-    elseif ($_SESSION['song']['series']['id'] == '20170205' || $_SESSION['song']['series']['id'] == '20171028') {
-        $_SESSION['song']['css'] = 'alamode';
-    }
-    elseif ($_SESSION['song']['series']['id'] == '20190203' || $_SESSION['song']['series']['id'] == '20191019') {
-        $_SESSION['song']['css'] = 'startwinkle';
-    }
-    else {
-        $_SESSION['song']['css'] = null;
-    }
+    $_SESSION['song']['css'] = null;
 
     // DJ情報
-    $_SESSION['dj']['current']['name'] = $data->getEscapeString($_POST['dj_current_name']);
-    $_SESSION['dj']['next']['name'] = $data->getEscapeString($_POST['dj_next_name']);
-    $_SESSION['dj']['next']['time'] = $data->getEscapeString($_POST['dj_next_time']);
-    $_SESSION['dj']['corner'] = $data->getEscapeString($_POST['dj_corner']);
+    $_SESSION['dj']['current']['name'] = $_POST['dj_current_name'];
+    $_SESSION['dj']['next']['name'] = $_POST['dj_next_name'];
+    $_SESSION['dj']['next']['time'] = $_POST['dj_next_time'];
+    $_SESSION['dj']['corner'] = $_POST['dj_corner'];
 
     // 更新フラグ
     $_SESSION['updated'] = '1';
 
-} else if ($_POST['mode'] === 'search') {
-    // 検索条件設定時
-    $_SESSION['search']['song_series_id'] = '';
-    $_SESSION['search']['song_title'] = '';
-    $_SESSION['search']['song_singer_name'] = '';
-
-    $_SESSION['search']['bgm_series_id'] = '';
-    $_SESSION['search']['bgm_title'] = '';
-    $_SESSION['search']['bgm_mno'] = '';
-
-    $_SESSION['search']['condition'] = $data->getEscapeString($_POST['searchcondition']);
-
-    if ($_POST[$_SESSION['search']['condition']] !== '') {
-        $_SESSION['search'][$_SESSION['search']['condition']] = $data->getEscapeString($_POST[$_SESSION['search']['condition']]);
-    }
 }
 ?>
 <!DOCTYPE html>
@@ -138,38 +178,12 @@ if ($_POST['mode'] === 'send') {
                         <div class="panel-collapse collapse in">
                             <div class="form-horizontal">
                                 <div class="form-group">
-                                    <label class="control-label col-md-2">シリーズ</label>
-                                    <div class="col-md-8">
-                                        <select id="song_series_id" name="song_series_id" class="form-control">
-                                            <option value=""></option>
-                                            <?php foreach($data->getSongSeriesList() as $series_id => $series_title) : ?>
-                                            <option value="<?= $series_id ?>"<?= ($series_id == $_SESSION['search']['song_series_id'] ? ' selected' : '') ?>><?= mb_substr($series_id, 0, 4) ?>: <?= $series_title ?></option>
-                                            <?php endforeach; ?>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-2">曲名</label>
-                                    <div class="col-md-3">
-                                        <input type="text" id="song_title" name="song_title" class="form-control" value="<?= $_SESSION['search']['song_title'] ?>">
-                                    </div>
-                                    <label class="control-label col-md-2">歌手</label>
-                                    <div class="col-md-3">
-                                        <input type="text" id="song_singer_name" name="song_singer_name" class="form-control" value="<?= $_SESSION['search']['song_singer_name'] ?>">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-md-4 offset-md-4">
-                                        <button type="button" id="song_clear" class="btn btn-primary btn-block"><i class="glyphicon glyphicon-remove-sign"></i> 歌曲条件クリア</button>
-                                    </div>
-                                </div>
-                                <div class="form-group">
                                     <label class="control-label col-md-2">歌曲選択</label>
                                     <div class="col-md-8">
                                         <select id="song_id" name="song_id" class="form-control">
                                             <option value=""></option>
-                                            <?php foreach($data->getSongSearchList($_SESSION['search']) as $song_id => $row) : ?>
-                                            <option value="<?= $song_id ?>"<?= ($song_id === $_SESSION['song']['id'] ? ' selected' : '') ?>><?= mb_substr($row['series_id'], 0, 4) ?>: <?= $row['song_title'] ?></option>
+                                            <?php foreach($extra_song as $song_id => $row) : ?>
+                                            <option value="<?= $song_id ?>"<?= ($song_id === $_SESSION['song']['id'] ? ' selected' : '') ?>><?= $row['series_year'] ?>: <?= $row['song_title'] ?></option>
                                             <?php endforeach; ?>
                                         </select>
                                     </div>
@@ -186,38 +200,12 @@ if ($_POST['mode'] === 'send') {
                         <div class="panel-collapse collapse in">
                             <div class="form-horizontal">
                                 <div class="form-group">
-                                    <label class="control-label col-md-2">シリーズ</label>
-                                    <div class="col-md-8">
-                                        <select id="bgm_series_id" name="bgm_series_id" class="form-control">
-                                            <option value=""></option>
-                                            <?php foreach($data->getBGMSeriesList() as $series_id => $series_title) : ?>
-                                            <option value="<?= $series_id ?>"<?= ($series_id == $_SESSION['search']['bgm_series_id'] ? ' selected' : '') ?>><?= mb_substr($series_id, 0, 4) ?>: <?= $series_title ?></option>
-                                            <?php endforeach; ?>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                <label class="control-label col-md-2">曲名</label>
-                                    <div class="col-md-3">
-                                        <input type="text" id="bgm_title" name="bgm_title" class="form-control" value="<?= $_SESSION['search']['bgm_title'] ?>">
-                                    </div>
-                                    <label class="control-label col-md-2">Mナンバー</label>
-                                    <div class="col-md-3">
-                                        <input type="text" id="bgm_mno" name="bgm_mno" class="form-control" value="<?= $_SESSION['search']['bgm_mno'] ?>">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-md-4 offset-md-4">
-                                        <button type="button" id="bgm_clear" class="btn btn-primary btn-block"><i class="glyphicon glyphicon-remove-sign"></i> 劇伴条件クリア</button>
-                                    </div>
-                                </div>
-                                <div class="form-group">
                                     <label class="control-label col-md-2">劇伴選択</label>
                                     <div class="col-md-8">
                                         <select id="bgm_id" name="bgm_id" class="form-control">
                                             <option value=""></option>
-                                            <?php foreach($data->getBGMSearchList($_SESSION['search']) as $bgm_id => $row) : ?>
-                                            <option value="<?= $bgm_id ?>"<?= ($bgm_id === $_SESSION['song']['id'] ? ' selected' : '') ?>><?= mb_substr($row['series_id'], 0, 4) ?>:<?= (!preg_match('/^_temp_\d{6}$/', $row['m_no_detail']) ? $row['m_no_detail'] : '') ?> <?= $row['track_title'] ?></option>
+                                            <?php foreach($extra_bgm as $bgm_id => $row) : ?>
+                                            <option value="<?= $bgm_id ?>"<?= ($bgm_id === $_SESSION['song']['id'] ? ' selected' : '') ?>><?= $row['series_year'] ?>:<?= (!preg_match('/^_temp_\d{6}$/', $row['m_no_detail']) ? $row['m_no_detail'] : '') ?> <?= $row['track_title'] ?></option>
                                             <?php endforeach; ?>
                                         </select>
                                     </div>
