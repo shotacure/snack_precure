@@ -132,6 +132,12 @@
     height: 12.5vw;
 }
 
+#hashtag {
+    font-family: FOT-ハミング ProN B;
+    font-size: 2.0vw;
+    margin-top: 0.6vw;
+}
+
 #artist-special {
     font-family: FOT-ハミング ProN B;
     font-size: 1.6vw;
@@ -140,6 +146,10 @@
 
 .goprincess {
     font-family: FOT-パール Std L !important;
+}
+
+.maho {
+    font-family: FOT-キアロ Std B !important;
 }
 
 .alamode {
