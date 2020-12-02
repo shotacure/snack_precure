@@ -77,6 +77,9 @@ if ($_POST['mode'] === 'send') {
     if ($_SESSION['song']['series']['id'] == '20150201' || $_SESSION['song']['series']['id'] == '20151031') {
         $_SESSION['song']['css'] = 'goprincess';
     }
+    elseif ($_SESSION['song']['series']['id'] == '20160207' || $_SESSION['song']['series']['id'] == '20161029') {
+        $_SESSION['song']['css'] = 'maho';
+    }
     elseif ($_SESSION['song']['series']['id'] == '20170205' || $_SESSION['song']['series']['id'] == '20171028') {
         $_SESSION['song']['css'] = 'alamode';
     }

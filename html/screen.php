@@ -33,9 +33,9 @@ session_start();
                         <?php endif; ?> 
                     </div>
                     <div id="song-special" class="screen-title">
-                        <?php if ($_SESSION['song']['id'] == '506' || $_SESSION['song']['id'] == '507') : ?> 
+                        <?php /*if ($_SESSION['song']['id'] == '506' || $_SESSION['song']['id'] == '507') : ?> 
                         2020年10月28日(水) 発売！
-                        <?php endif; ?> 
+                        <?php endif;*/ ?> 
                     </div>
                 </div>
                 <div id="left-bottom">
@@ -81,12 +81,17 @@ session_start();
                         <img id="corner-img" src="./common/img/<?= $_SESSION['dj']['corner'] ?>@0.5x.png">
                         <?php endif; ?> 
                     </div>
+                    <div id="hashtag" class="screen-title">
+                        <?php if (!empty($_SESSION['dj']['current']['name'])) : ?> 
+                        #すなっくプリキュア
+                        <?php endif; ?> 
+                    </div>
                 </div>
                 <div id="right-bottom">
                     <div id="artist-special" class="screen-title">
-                        <?php if (strpos($_SESSION['song']['artist'], '北川理恵') !== false) : ?>
+                        <?php /*if (strpos($_SESSION['song']['artist'], '北川理恵') !== false) : ?>
                         「MY toybox～Rie Kitagawa<br>プリキュアソングコレクション～」<br>2020年11月25日(水) 発売！
-                        <?php endif; ?> 
+                        <?php endif;*/ ?> 
                     </div>
                 </div>
             </div>
