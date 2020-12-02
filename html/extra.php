@@ -40,20 +40,6 @@ $extra_song = [
         'song_title' => 'プリキュア5、フル・スロットル GoGo!',
         'singer_name' => '野口 茜、若林美佐、野村綾乃',
     ],
-    'kagome120' => [
-        'series_year' => '2018',
-        'series_title' => 'カゴメ創業120周年記念ソング',
-        'disc_title' => '',
-        'song_title' => '「進めカゴメ」（カゴメ創業120周年記念ソング）',
-        'singer_name' => '北川理恵',
-    ],
-    'nomore2020' => [
-        'series_year' => '2020',
-        'series_title' => 'NO MORE映画泥棒',
-        'disc_title' => '',
-        'song_title' => '「NO MORE映画泥棒」劇場用CM(2020)',
-        'singer_name' => '「映画館に行こう！」実行委員会',
-    ],
 ];
 
 $extra_bgm = [
@@ -66,16 +52,6 @@ $extra_bgm = [
         'track_title' => '東映動画タイトル',
         'composer_name' => '和田 薫',
         'arranger_name' => '和田 薫', 
-    ],
-    'heapre_ep29' => [
-        'series_year' => '2020',
-        'series_title' => 'ヒーリングっど♥プリキュア',
-        'disc_title' => '',
-        'm_no_detail' => '',
-        'menu' => '',
-        'track_title' => '#29吹奏楽練習(ことえ&有斗)',
-        'composer_name' => '寺田志保',
-        'arranger_name' => '寺田志保', 
     ],
 ];
 
