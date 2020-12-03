@@ -7,14 +7,6 @@ $(function() {
         $('form').submit()
     });
 
-    // 歌曲ディスクリスト
-    $('#song_disc_id').change(function() {
-        $('#song_id').prop('disabled', true)
-        $('#mode').val('search')
-        $('#searchcondition').val('song_disc_id')
-        $('form').submit()
-    });
-
     // 歌曲曲名
     $('#song_title').change(function() {
         $('#song_id').prop('disabled', true)
@@ -42,9 +34,8 @@ $(function() {
     // 歌曲選択
     $('#song_id').change(function() {
         $('#bgm_series_id').val('')
-        $('#bgm_disc_id').val('')
         $('#bgm_title').val('')
-        $('#bgm_no').val('')
+        $('#bgm_mno').val('')
         $('#bgm_id').val('')
         $('#musictype').val('Vocal')
     });
@@ -57,14 +48,6 @@ $(function() {
         $('form').submit()
     });
 
-    // 劇伴ディスクリスト
-    $('#bgm_disc_id').change(function() {
-        $('#bgm_id').prop('disabled', true)
-        $('#mode').val('search')
-        $('#searchcondition').val('bgm_disc_id')
-        $('form').submit()
-    });
-
     // 劇伴曲名
     $('#bgm_title').change(function() {
         $('#bgm_id').prop('disabled', true)
@@ -73,7 +56,7 @@ $(function() {
         $('form').submit()
     });
 
-    // 劇伴曲名
+    // 劇伴Mナンバー
     $('#bgm_mno').change(function() {
         $('#bgm_id').prop('disabled', true)
         $('#mode').val('search')
@@ -92,7 +75,6 @@ $(function() {
     // 劇伴選択
     $('#bgm_id').change(function() {
         $('#song_series_id').val('')
-        $('#song_disc_id').val('')
         $('#song_title').val('')
         $('#song_singer_name').val('')
         $('#song_id').val('')
