@@ -60,7 +60,7 @@ if ($_POST['mode'] === 'send') {
         $_SESSION['song']['artist'] = '';
 
     } else {
-            // ブランク時は空にする
+        // ブランク時は空にする
         $_SESSION['song']['musictype'] = '';
         $_SESSION['song']['id'] = '';
         $_SESSION['song']['series']['year'] = '';
