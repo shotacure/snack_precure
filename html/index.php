@@ -172,7 +172,7 @@ if ($_POST['mode'] === 'send') {
                                         <select id="song_id" name="song_id" class="form-control">
                                             <option value=""></option>
                                             <?php foreach($data->getSongSearchList($_SESSION['search']) as $song_id => $row) : ?>
-                                            <option value="<?= $song_id ?>"<?= ($song_id === $_SESSION['song']['id'] ? ' selected' : '') ?>><?= mb_substr($row['series_id'], 0, 4) ?>: <?= $row['song_title'] ?></option>
+                                            <option value="<?= $song_id ?>"<?= ($song_id == $_SESSION['song']['id'] ? ' selected' : '') ?>><?= mb_substr($row['series_id'], 0, 4) ?>: <?= $row['song_title'] ?></option>
                                             <?php endforeach; ?>
                                         </select>
                                     </div>
@@ -220,7 +220,7 @@ if ($_POST['mode'] === 'send') {
                                         <select id="bgm_id" name="bgm_id" class="form-control">
                                             <option value=""></option>
                                             <?php foreach($data->getBGMSearchList($_SESSION['search']) as $bgm_id => $row) : ?>
-                                            <option value="<?= $bgm_id ?>"<?= ($bgm_id === $_SESSION['song']['id'] ? ' selected' : '') ?>><?= mb_substr($row['series_id'], 0, 4) ?>:<?= (!preg_match('/^_temp_\d{6}$/', $row['m_no_detail']) ? $row['m_no_detail'] : '') ?> <?= $row['track_title'] ?></option>
+                                            <option value="<?= $bgm_id ?>"<?= ($bgm_id == $_SESSION['song']['id'] ? ' selected' : '') ?>><?= mb_substr($row['series_id'], 0, 4) ?>:<?= (!preg_match('/^_temp_\d{6}$/', $row['m_no_detail']) ? $row['m_no_detail'] : '') ?> <?= $row['track_title'] ?></option>
                                             <?php endforeach; ?>
                                         </select>
                                     </div>
