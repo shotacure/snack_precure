@@ -250,10 +250,7 @@ class PrecureMusicData
         // 結果をバインド
         $stmt->bind_result($song_id, $song_title, $series_id);
         while ($stmt->fetch()) {
-            $result[$song_id] = array(
-                'song_title' => $song_title,
-                'series_id' => $series_id,
-            );
+            $result[$song_id] = mb_substr($series_id, 0, 4) . ': ' . $song_title;
         }
 
         // ステートメントを閉じる
@@ -387,11 +384,7 @@ class PrecureMusicData
         // 結果をバインド
         $stmt->bind_result($disc_id, $track_no, $series_id, $m_no_detail, $track_title);
         while ($stmt->fetch()) {
-            $result[$disc_id . '_' . $track_no] = array(
-                'series_id' => $series_id,
-                'm_no_detail' => (!preg_match('/^_temp_\d{6}$/', $m_no_detail) ? $m_no_detail : ''),
-                'track_title' => $track_title,
-            );
+            $result[$disc_id . '_' . $track_no] = mb_substr($series_id, 0, 4) . ': ' . (!preg_match('/^_temp_\d{6}$/', $m_no_detail) ? $m_no_detail . ' ' : '') . $track_title;
         }
 
         // ステートメントを閉じる
