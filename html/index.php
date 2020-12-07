@@ -151,10 +151,10 @@ if ($_POST['mode'] === 'send') {
                                 </div>
                                 <div class="form-group">
                                     <div class="col-md-6">
-                                        <input type="text" id="song_title" name="song_title" placeholder="曲名" class="form-control" value="<?= $_SESSION['search']['song_title'] ?>">
+                                        <input type="text" id="song_title" name="song_title" placeholder="曲名" class="form-control" value="">
                                     </div>
                                     <div class="col-md-6">
-                                        <input type="text" id="song_singer_name" name="song_singer_name" placeholder="歌手" class="form-control" value="<?= $_SESSION['search']['song_singer_name'] ?>">
+                                        <input type="text" id="song_singer_name" name="song_singer_name" placeholder="歌手" class="form-control" value="">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -162,7 +162,7 @@ if ($_POST['mode'] === 'send') {
                                         <select id="song_id" name="song_id" class="form-control">
                                             <option value=""></option>
                                             <?php foreach($data->getSongSearchList($_SESSION['search']) as $song_id => $row) : ?>
-                                            <option value="<?= $song_id ?>"<?= ($song_id == $_SESSION['song']['id'] ? ' selected' : '') ?>><?= mb_substr($row['series_id'], 0, 4) ?>: <?= $row['song_title'] ?></option>
+                                            <option value="<?= $song_id ?>"><?= mb_substr($row['series_id'], 0, 4) ?>: <?= $row['song_title'] ?></option>
                                             <?php endforeach; ?>
                                         </select>
                                     </div>
@@ -183,17 +183,17 @@ if ($_POST['mode'] === 'send') {
                                         <select id="bgm_series_id" name="bgm_series_id" class="form-control">
                                             <option value="">-- シリーズ選択 --</option>
                                             <?php foreach($data->getBGMSeriesList() as $series_id => $series_title) : ?>
-                                            <option value="<?= $series_id ?>"<?= ($series_id == $_SESSION['search']['bgm_series_id'] ? ' selected' : '') ?>><?= mb_substr($series_id, 0, 4) ?>: <?= $series_title ?></option>
+                                            <option value="<?= $series_id ?>"><?= mb_substr($series_id, 0, 4) ?>: <?= $series_title ?></option>
                                             <?php endforeach; ?>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-md-6">
-                                        <input type="text" id="bgm_title" name="bgm_title" placeholder="曲名" class="form-control" value="<?= $_SESSION['search']['bgm_title'] ?>">
+                                        <input type="text" id="bgm_title" name="bgm_title" placeholder="曲名" class="form-control" value="">
                                     </div>
                                     <div class="col-md-6">
-                                        <input type="text" id="bgm_mno" name="bgm_mno" placeholder="Mナンバー" class="form-control" value="<?= $_SESSION['search']['bgm_mno'] ?>">
+                                        <input type="text" id="bgm_mno" name="bgm_mno" placeholder="Mナンバー" class="form-control" value="">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -201,7 +201,7 @@ if ($_POST['mode'] === 'send') {
                                         <select id="bgm_id" name="bgm_id" class="form-control">
                                             <option value=""></option>
                                             <?php foreach($data->getBGMSearchList($_SESSION['search']) as $bgm_id => $row) : ?>
-                                            <option value="<?= $bgm_id ?>"<?= ($bgm_id == $_SESSION['song']['id'] ? ' selected' : '') ?>><?= mb_substr($row['series_id'], 0, 4) ?>:<?= (!preg_match('/^_temp_\d{6}$/', $row['m_no_detail']) ? $row['m_no_detail'] : '') ?> <?= $row['track_title'] ?></option>
+                                            <option value="<?= $bgm_id ?>"><?= mb_substr($row['series_id'], 0, 4) ?>:<?= (!preg_match('/^_temp_\d{6}$/', $row['m_no_detail']) ? $row['m_no_detail'] : '') ?> <?= $row['track_title'] ?></option>
                                             <?php endforeach; ?>
                                         </select>
                                     </div>
@@ -259,9 +259,6 @@ if ($_POST['mode'] === 'send') {
                 <button type="button" id="send" class="btn btn btn-danger btn-lg"><i class="glyphicon glyphicon-send"></i> 送出</button>
                 <button type="button" id="music_clear" class="btn btn-warning btn-lg"><i class="glyphicon glyphicon-remove-sign"></i> 楽曲クリア</button>
             </div>
-            <input type="hidden" id="mode" name="mode" value="<?= $_POST['mode'] ?>">
-            <input type="hidden" id="musictype" name="musictype" value="<?= $_SESSION['song']['musictype'] ?>">
-            <input type="hidden" id="searchcondition" name="searchcondition" value="<?= $_SESSION['search']['condition'] ?>">
         </form>
     </body>
 </html>
