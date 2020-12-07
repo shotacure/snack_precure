@@ -123,7 +123,6 @@ if ($_POST['mode'] === 'send') {
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>すなっくプリキュア タイトルジェネレータ</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-        <link rel="stylesheet" href="./common/css/style.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
@@ -141,10 +140,9 @@ if ($_POST['mode'] === 'send') {
                         <div class="panel-collapse collapse in">
                             <div class="form-horizontal">
                                 <div class="form-group">
-                                    <label class="control-label col-md-2">シリーズ</label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-12">
                                         <select id="song_series_id" name="song_series_id" class="form-control">
-                                            <option value=""></option>
+                                            <option value="">-- シリーズ選択 --</option>
                                             <?php foreach($data->getSongSeriesList() as $series_id => $series_title) : ?>
                                             <option value="<?= $series_id ?>"<?= ($series_id == $_SESSION['search']['song_series_id'] ? ' selected' : '') ?>><?= mb_substr($series_id, 0, 4) ?>: <?= $series_title ?></option>
                                             <?php endforeach; ?>
@@ -152,23 +150,15 @@ if ($_POST['mode'] === 'send') {
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-md-2">曲名</label>
-                                    <div class="col-md-3">
-                                        <input type="text" id="song_title" name="song_title" class="form-control" value="<?= $_SESSION['search']['song_title'] ?>">
+                                    <div class="col-md-6">
+                                        <input type="text" id="song_title" name="song_title" placeholder="曲名" class="form-control" value="<?= $_SESSION['search']['song_title'] ?>">
                                     </div>
-                                    <label class="control-label col-md-2">歌手</label>
-                                    <div class="col-md-3">
-                                        <input type="text" id="song_singer_name" name="song_singer_name" class="form-control" value="<?= $_SESSION['search']['song_singer_name'] ?>">
+                                    <div class="col-md-6">
+                                        <input type="text" id="song_singer_name" name="song_singer_name" placeholder="歌手" class="form-control" value="<?= $_SESSION['search']['song_singer_name'] ?>">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <div class="col-md-4 offset-md-4">
-                                        <button type="button" id="song_clear" class="btn btn-primary btn-block"><i class="glyphicon glyphicon-remove-sign"></i> 歌曲条件クリア</button>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-2">歌曲選択</label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-12">
                                         <select id="song_id" name="song_id" class="form-control">
                                             <option value=""></option>
                                             <?php foreach($data->getSongSearchList($_SESSION['search']) as $song_id => $row) : ?>
@@ -189,10 +179,9 @@ if ($_POST['mode'] === 'send') {
                         <div class="panel-collapse collapse in">
                             <div class="form-horizontal">
                                 <div class="form-group">
-                                    <label class="control-label col-md-2">シリーズ</label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-12">
                                         <select id="bgm_series_id" name="bgm_series_id" class="form-control">
-                                            <option value=""></option>
+                                            <option value="">-- シリーズ選択 --</option>
                                             <?php foreach($data->getBGMSeriesList() as $series_id => $series_title) : ?>
                                             <option value="<?= $series_id ?>"<?= ($series_id == $_SESSION['search']['bgm_series_id'] ? ' selected' : '') ?>><?= mb_substr($series_id, 0, 4) ?>: <?= $series_title ?></option>
                                             <?php endforeach; ?>
@@ -200,23 +189,15 @@ if ($_POST['mode'] === 'send') {
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                <label class="control-label col-md-2">曲名</label>
-                                    <div class="col-md-3">
-                                        <input type="text" id="bgm_title" name="bgm_title" class="form-control" value="<?= $_SESSION['search']['bgm_title'] ?>">
+                                    <div class="col-md-6">
+                                        <input type="text" id="bgm_title" name="bgm_title" placeholder="曲名" class="form-control" value="<?= $_SESSION['search']['bgm_title'] ?>">
                                     </div>
-                                    <label class="control-label col-md-2">Mナンバー</label>
-                                    <div class="col-md-3">
-                                        <input type="text" id="bgm_mno" name="bgm_mno" class="form-control" value="<?= $_SESSION['search']['bgm_mno'] ?>">
+                                    <div class="col-md-6">
+                                        <input type="text" id="bgm_mno" name="bgm_mno" placeholder="Mナンバー" class="form-control" value="<?= $_SESSION['search']['bgm_mno'] ?>">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <div class="col-md-4 offset-md-4">
-                                        <button type="button" id="bgm_clear" class="btn btn-primary btn-block"><i class="glyphicon glyphicon-remove-sign"></i> 劇伴条件クリア</button>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-2">劇伴選択</label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-12">
                                         <select id="bgm_id" name="bgm_id" class="form-control">
                                             <option value=""></option>
                                             <?php foreach($data->getBGMSearchList($_SESSION['search']) as $bgm_id => $row) : ?>
@@ -268,7 +249,7 @@ if ($_POST['mode'] === 'send') {
                                     </div>
                                     <label class="control-label col-md-2">次DJ時間</label>
                                     <div class="col-md-3">
-                                        <input type="text" name="dj_next_time" class="form-control" value="<?= $_SESSION['dj']['next']['time'] ?>">
+                                        <input type="text" name="dj_next_time" placeholder="15:00" class="form-control" value="<?= $_SESSION['dj']['next']['time'] ?>">
                                     </div>
                                 </div>
                             </div>
