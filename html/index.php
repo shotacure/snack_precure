@@ -99,21 +99,6 @@ if ($_POST['mode'] === 'send') {
     // 更新フラグ
     $_SESSION['updated'] = '1';
 
-} else if ($_POST['mode'] === 'search') {
-    // 検索条件設定時
-    $_SESSION['search']['song_series_id'] = '';
-    $_SESSION['search']['song_title'] = '';
-    $_SESSION['search']['song_singer_name'] = '';
-
-    $_SESSION['search']['bgm_series_id'] = '';
-    $_SESSION['search']['bgm_title'] = '';
-    $_SESSION['search']['bgm_mno'] = '';
-
-    $_SESSION['search']['condition'] = $data->getEscapeString($_POST['searchcondition']);
-
-    if ($_POST[$_SESSION['search']['condition']] !== '') {
-        $_SESSION['search'][$_SESSION['search']['condition']] = $data->getEscapeString($_POST[$_SESSION['search']['condition']]);
-    }
 }
 ?>
 <!DOCTYPE html>
@@ -144,7 +129,7 @@ if ($_POST['mode'] === 'send') {
                                         <select id="song_series_id" name="song_series_id" class="form-control">
                                             <option value="">-- シリーズ選択 --</option>
                                             <?php foreach($data->getSongSeriesList() as $series_id => $series_title) : ?>
-                                            <option value="<?= $series_id ?>"<?= ($series_id == $_SESSION['search']['song_series_id'] ? ' selected' : '') ?>><?= mb_substr($series_id, 0, 4) ?>: <?= $series_title ?></option>
+                                            <option value="<?= $series_id ?>"><?= mb_substr($series_id, 0, 4) ?>: <?= $series_title ?></option>
                                             <?php endforeach; ?>
                                         </select>
                                     </div>
@@ -159,11 +144,7 @@ if ($_POST['mode'] === 'send') {
                                 </div>
                                 <div class="form-group">
                                     <div class="col-md-12">
-                                        <select id="song_id" name="song_id" class="form-control">
-                                            <option value=""></option>
-                                            <?php foreach($data->getSongSearchList($_SESSION['search']) as $song_id => $row) : ?>
-                                            <option value="<?= $song_id ?>"><?= mb_substr($row['series_id'], 0, 4) ?>: <?= $row['song_title'] ?></option>
-                                            <?php endforeach; ?>
+                                        <select id="song_id" name="song_id" class="form-control" disabled>
                                         </select>
                                     </div>
                                 </div>
@@ -198,11 +179,7 @@ if ($_POST['mode'] === 'send') {
                                 </div>
                                 <div class="form-group">
                                     <div class="col-md-12">
-                                        <select id="bgm_id" name="bgm_id" class="form-control">
-                                            <option value=""></option>
-                                            <?php foreach($data->getBGMSearchList($_SESSION['search']) as $bgm_id => $row) : ?>
-                                            <option value="<?= $bgm_id ?>"><?= mb_substr($row['series_id'], 0, 4) ?>:<?= (!preg_match('/^_temp_\d{6}$/', $row['m_no_detail']) ? $row['m_no_detail'] : '') ?> <?= $row['track_title'] ?></option>
-                                            <?php endforeach; ?>
+                                        <select id="bgm_id" name="bgm_id" class="form-control" disabled>
                                         </select>
                                     </div>
                                 </div>
