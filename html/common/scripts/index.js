@@ -44,7 +44,7 @@ $(() => {
     // 歌曲選択
     $('#song_id').change(() => {
         clear_bgm()
-        getTweet({
+        setSong({
             class: 'song',
             id: $('#song_id').val(),
         })
@@ -95,7 +95,7 @@ $(() => {
     // 劇伴選択
     $('#bgm_id').change(() => {
         clear_song()
-        getTweet({
+        setSong({
             class: 'bgm',
             id: $('#bgm_id').val(),
         })
@@ -109,7 +109,7 @@ $(() => {
         $('#song_id').val('')
         $('#song_id option').remove()
         $('#song_id').prop('disabled', true)
-        // TODO: 選択値クリア
+        clearData()
     }
     
     // 劇伴クリア
@@ -120,7 +120,7 @@ $(() => {
         $('#bgm_id').val('')
         $('#bgm_id option').remove()
         $('#bgm_id').prop('disabled', true)
-        // TODO: 選択値クリア
+        clearData()
     }
 
     /**
@@ -154,17 +154,56 @@ $(() => {
     }
 
     /**
-     * 楽曲選択
+     * 楽曲設定
      */
+    setSong = (arg) => {
+        $.ajax({
+            url: './common/set_song.php',
+            type: 'POST',
+            data: arg,
+        })
+    }
 
+    // DJ情報
+    $('.dj_data').change(() => {
+        $.ajax({
+            url: './common/set_dj.php',
+            type: 'POST',
+            data: ({
+                dj_current_name: $('#dj_current_name').val(),
+                dj_next_name: $('#dj_next_name').val(),
+                dj_next_time: $('#dj_next_time').val(),
+                dj_corner: $('#dj_corner').val(),
+            }),
+        })
+    })
+
+    // 送出ボタン
+    $('#on_air').click(() => {
+        $.ajax({
+            url: './common/on_air.php',
+            type: 'POST',
+        })
+    })
+
+    // クリアボタン
+    $('#clear').click(() => {
+        clear_song()
+        clear_bgm()
+        clearData()
+        $.ajax({
+            url: './common/on_air.php',
+            type: 'POST',
+        })
+    })
 
     /**
-     * 楽曲送出
+     * データクリア
      */
-
-
-    /**
-     * クリア送出
-     */
-
+    clearData = () => {
+        $.ajax({
+            url: './common/clear.php',
+            type: 'POST',
+        })
+    }
 })
