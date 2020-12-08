@@ -29,7 +29,9 @@ class PrecureMusicData
         return $this->mysqli->real_escape_string($str);
     }
 
-    // 歌曲データ取得
+    /**
+     * 歌曲データ取得
+     */
     public function getSongData($song_id) {
         // 入力値のサニタイズ
         $song_id = $this->mysqli->real_escape_string($song_id);
@@ -89,7 +91,9 @@ class PrecureMusicData
         return $result;
     }
 
-    // 劇伴データ取得
+    /**
+     * 劇伴データ取得
+     */
     public function getBGMData($bgm_id) {
         // 入力値のサニタイズ
         $bgm_id = $this->mysqli->real_escape_string($bgm_id);
@@ -116,8 +120,7 @@ class PrecureMusicData
             INNER JOIN tracks
                 ON musics.disc_id = tracks.disc_id AND musics.track_no = tracks.track_no
             WHERE musics.disc_id = ?
-                AND musics.track_no = ?
-            ORDER BY musics.series_id ASC, musics.rec_session ASC, musics.m_no_detail ASC, musics.disc_id ASC, musics.track_no ASC;");
+                AND musics.track_no = ?");
 
         $stmt->bind_param(
             'ss',
@@ -157,7 +160,9 @@ class PrecureMusicData
         return $result;
     }
 
-    // 歌曲シリーズ一覧取得
+    /**
+     * 歌曲シリーズ一覧取得
+     */
     public function getSongSeriesList() {
         // クエリ
         $stmt = $this->mysqli->prepare("SELECT series.series_id
@@ -184,10 +189,15 @@ class PrecureMusicData
         return $result;
     }
 
-    // 歌曲検索一覧取得
-    public function getSongSearchList($search_condition) {
+    /**
+     * 歌曲検索一覧取得
+     */
+    public function getSongSearchList($condt, $argmt) {
+        // サニタイズ
+        $param = $this->getEscapeString($argmt);
+
         // クエリ
-        if ($search_condition['condition'] === 'song_series_id' && !empty($search_condition['song_series_id'])) {
+        if ($condt === 'series_id' && !empty($param)) {
             // シリーズ指定
             $stmt = $this->mysqli->prepare("SELECT songs.song_id
                 ,songs.song_title
@@ -198,9 +208,9 @@ class PrecureMusicData
 
             $stmt->bind_param(
                 's',
-                $search_condition['song_series_id'],
+                $param,
             );
-        } else if ($search_condition['condition'] === 'song_title' && !empty($search_condition['song_title'])) {
+        } else if ($condt === 'title' && !empty($param)) {
             // 曲名指定
             $stmt = $this->mysqli->prepare("SELECT songs.song_id
                 ,songs.song_title
@@ -209,12 +219,12 @@ class PrecureMusicData
             WHERE songs.song_title LIKE ?
             ORDER BY songs.song_id ASC;");
 
-            $param = '%' . $search_condition['song_title'] . '%';
+            $param = '%' . $param . '%';
             $stmt->bind_param(
                 's',
                 $param,
             );
-        } else if ($search_condition['condition'] === 'song_singer_name' && !empty($search_condition['song_singer_name'])) {
+        } else if ($condt === 'singer_name' && !empty($param)) {
             // 歌手指定
             $stmt = $this->mysqli->prepare("SELECT songs.song_id
                 ,songs.song_title
@@ -223,7 +233,7 @@ class PrecureMusicData
             WHERE songs.singer_name LIKE ?
             ORDER BY songs.song_id ASC;");
 
-            $param = '%' . $search_condition['song_singer_name'] . '%';
+            $param = '%' . $param . '%';
             $stmt->bind_param(
                 's',
                 $param,
@@ -243,10 +253,7 @@ class PrecureMusicData
         // 結果をバインド
         $stmt->bind_result($song_id, $song_title, $series_id);
         while ($stmt->fetch()) {
-            $result[$song_id] = array(
-                'song_title' => $song_title,
-                'series_id' => $series_id,
-            );
+            $result[$song_id] = mb_substr($series_id, 0, 4) . ': ' . $song_title;
         }
 
         // ステートメントを閉じる
@@ -256,7 +263,9 @@ class PrecureMusicData
         return $result;
     }
 
-    // 劇伴シリーズ一覧取得
+    /**
+     * 劇伴シリーズ一覧取得
+     */
     public function getBGMSeriesList() {
         // クエリの実行
         $stmt = $this->mysqli->prepare("SELECT series.series_id
@@ -284,10 +293,15 @@ class PrecureMusicData
         return $result;
     }
 
-    // 劇伴検索一覧取得
-    public function getBGMSearchList($search_condition) {
+    /**
+     * 劇伴検索一覧取得
+     */
+    public function getBGMSearchList($condt, $argmt) {
+        // サニタイズ
+        $param = $this->getEscapeString($argmt);
+        
         // クエリ
-        if ($search_condition['condition'] === 'bgm_series_id' && !empty($search_condition['bgm_series_id'])) {
+        if ($condt === 'series_id' && !empty($param)) {
             // シリーズ指定
             $stmt = $this->mysqli->prepare("SELECT musics.disc_id,
                 musics.track_no,
@@ -306,9 +320,9 @@ class PrecureMusicData
 
             $stmt->bind_param(
                 's',
-                $search_condition['bgm_series_id'],
+                $param,
             );
-        } else if ($search_condition['condition'] === 'bgm_title' && !empty($search_condition['bgm_title'])) {
+        } else if ($condt === 'title' && !empty($param)) {
             // 曲名指定
             $stmt = $this->mysqli->prepare("SELECT musics.disc_id,
                 musics.track_no,
@@ -325,12 +339,12 @@ class PrecureMusicData
             WHERE tracks.track_title LIKE ?
             ORDER BY musics.series_id ASC, musics.rec_session ASC, musics.m_no_detail ASC, musics.disc_id ASC, musics.track_no ASC;");
 
-            $param = '%' . $search_condition['bgm_title'] . '%';
+            $param = '%' . $param . '%';
             $stmt->bind_param(
                 's',
                 $param,
             );
-        } else if ($search_condition['condition'] === 'bgm_mno' && !empty($search_condition['bgm_mno'])) {
+        } else if ($condt === 'mno' && !empty($param)) {
             // Mナンバー指定
             $stmt = $this->mysqli->prepare("SELECT musics.disc_id,
                 musics.track_no,
@@ -345,9 +359,10 @@ class PrecureMusicData
             INNER JOIN tracks
                 ON musics.disc_id = tracks.disc_id AND musics.track_no = tracks.track_no
             WHERE musics.m_no_detail LIKE ?
+                AND musics.m_no_detail NOT LIKE '_temp_%'
             ORDER BY musics.series_id ASC, musics.rec_session ASC, musics.m_no_detail ASC, musics.disc_id ASC, musics.track_no ASC;");
 
-            $param = '%' . $search_condition['bgm_mno'] . '%';
+            $param = '%' . $param . '%';
             $stmt->bind_param(
                 's',
                 $param,
@@ -375,11 +390,7 @@ class PrecureMusicData
         // 結果をバインド
         $stmt->bind_result($disc_id, $track_no, $series_id, $m_no_detail, $track_title);
         while ($stmt->fetch()) {
-            $result[$disc_id . '_' . $track_no] = array(
-                'series_id' => $series_id,
-                'm_no_detail' => $m_no_detail,
-                'track_title' => $track_title,
-            );
+            $result[$disc_id . '_' . $track_no] = mb_substr($series_id, 0, 4) . ': ' . (!preg_match('/^_temp_\d{6}$/', $m_no_detail) ? $m_no_detail . ' ' : '') . $track_title;
         }
 
         // ステートメントを閉じる

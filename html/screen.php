@@ -33,9 +33,9 @@ session_start();
                         <?php endif; ?> 
                     </div>
                     <div id="song-special" class="screen-title">
-                        <?php /*if ($_SESSION['song']['id'] == '506' || $_SESSION['song']['id'] == '507') : ?> 
-                        2020年10月28日(水) 発売！
-                        <?php endif;*/ ?> 
+                        <?php if (strpos($_SESSION['song']['arranger'], '寺田志保') !== false) : ?> 
+                        「ヒーリングっど♥プリキュア オリジナル・サウンドトラック2<br>プリキュア・サウンド・オアシス!!」 12月23日(水) 発売！
+                        <?php endif; ?> 
                     </div>
                 </div>
                 <div id="left-bottom">
@@ -89,9 +89,9 @@ session_start();
                 </div>
                 <div id="right-bottom">
                     <div id="artist-special" class="screen-title">
-                        <?php /*if (strpos($_SESSION['song']['artist'], '北川理恵') !== false) : ?>
-                        「MY toybox～Rie Kitagawa<br>プリキュアソングコレクション～」<br>2020年11月25日(水) 発売！
-                        <?php endif;*/ ?> 
+                        <?php if (strpos($_SESSION['song']['artist'], '北川理恵') !== false) : ?>
+                        「MY toybox～Rie Kitagawa<br>プリキュアソングコレクション～」<br>好評発売中！
+                        <?php endif; ?> 
                     </div>
                 </div>
             </div>
