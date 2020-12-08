@@ -10,9 +10,9 @@ require_once __DIR__ . '/data.php';
 $data = new PrecureMusicData();
 
 // POST値取得
-$class = $data->getEscapeString($_POST['class']);
-$condt = $data->getEscapeString($_POST['condt']);
-$argmt = $data->getEscapeString($_POST['argmt']);
+$class = $_POST['class'];
+$condt = $_POST['condt'];
+$argmt = $_POST['argmt'];
 
 if ($class === 'song') {
     // 歌曲
@@ -20,8 +20,11 @@ if ($class === 'song') {
 } elseif ($class === 'bgm') {
     // 劇伴
     $list = $data->getBGMSearchList($condt, $argmt);
+} else {
+    http_response_code(500);
+    exit();
 }
-
+       
 // リスト出力
 header('Content-Type: application/json');
 echo json_encode($list);
