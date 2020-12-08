@@ -88,7 +88,7 @@ $(() => {
         getList({
             class: 'bgm',
             condt: 'mno',
-            argmt: $('#bgm_title').val(),
+            argmt: $('#bgm_mno').val(),
         })
     })
 
