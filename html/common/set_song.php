@@ -22,7 +22,6 @@ if ($class === 'song' && !empty($id)) {
     $song = $data->getSongData($id);
 
     // 取得データをセッションに入れる
-    $_SESSION['song']['id'] = $song['song_id'];
     $_SESSION['song']['series']['id'] = $song['series_id'];
     $_SESSION['song']['series']['year'] = mb_substr($song['series_id'], 0, 4);
     $_SESSION['song']['series']['name'] = $song['series_title'];
@@ -40,7 +39,6 @@ if ($class === 'song' && !empty($id)) {
     $bgm = $data->getBGMData($id);
 
     // 取得データをセッションに入れる
-    $_SESSION['song']['id'] = $bgm['disc_id'] . '_' . $bgm['track_no'];
     $_SESSION['song']['series']['id'] = $bgm['series_id'];
     $_SESSION['song']['series']['year'] = mb_substr($bgm['series_id'], 0, 4);
     $_SESSION['song']['series']['name'] = $bgm['series_title'];
@@ -55,7 +53,6 @@ if ($class === 'song' && !empty($id)) {
     $_SESSION['song']['artist'] = '';    
 } else {
     // ブランク時は空にする
-    $_SESSION['song']['id'] = '';
     $_SESSION['song']['series']['id'] = '';
     $_SESSION['song']['series']['year'] = '';
     $_SESSION['song']['series']['name'] = '';
