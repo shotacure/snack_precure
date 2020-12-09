@@ -240,11 +240,7 @@ class PrecureMusicData
             );
         } else {
             // 検索条件なし
-            $stmt = $this->mysqli->prepare("SELECT songs.song_id
-                ,songs.song_title
-                ,songs.series_id
-            FROM songs
-            ORDER BY songs.song_id ASC;");
+            return null;
         }
 
         // ステートメントを実行
@@ -369,19 +365,7 @@ class PrecureMusicData
             );
         } else {
             // 検索条件なし
-            $stmt = $this->mysqli->prepare("SELECT musics.disc_id,
-                musics.track_no,
-                musics.series_id,
-                musics.m_no_detail,
-                tracks.track_title
-            FROM musics
-            INNER JOIN series
-                ON musics.series_id = series.series_id
-            INNER JOIN discs
-                ON musics.disc_id = discs.disc_id
-            INNER JOIN tracks
-                ON musics.disc_id = tracks.disc_id AND musics.track_no = tracks.track_no
-            ORDER BY musics.series_id ASC, musics.rec_session ASC, musics.m_no_detail ASC, musics.disc_id ASC, musics.track_no ASC;");
+            return null;
         }
 
         // ステートメントを実行
