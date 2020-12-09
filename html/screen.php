@@ -77,7 +77,10 @@ session_start();
                         <?php endif; ?> 
                     </div>
                     <div id="dj-corner">
-                        <?php if (!empty($_SESSION['dj']['corner']) && ($_SESSION['dj']['corner'] != 'snack201018_riekitagawa' || strpos($_SESSION['song']['artist'], '北川理恵') !== false))  : ?> 
+                        <?php if (!empty($_SESSION['dj']['corner']) &&
+                            ($_SESSION['dj']['corner'] != 'snack201213_precure5' ||
+                            $_SESSION['music']['series']['year'] == '2007' ||
+                            $_SESSION['music']['series']['year'] == '2008')) : ?> 
                         <img id="corner-img" src="./common/img/<?= $_SESSION['dj']['corner'] ?>@0.5x.png">
                         <?php endif; ?> 
                     </div>
