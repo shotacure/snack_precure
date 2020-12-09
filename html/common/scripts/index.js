@@ -204,8 +204,6 @@ $(() => {
         })
         .done((data) => {
             setNext(data['music'])
-            clear_song()
-            clear_bgm()
         })
     })
 
