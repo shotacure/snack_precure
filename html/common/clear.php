@@ -21,3 +21,7 @@ $_SESSION['song']['mno'] = '';
 $_SESSION['song']['menu'] = '';
 $_SESSION['song']['composer'] = '';
 $_SESSION['song']['arranger'] = '';
+
+// データ出力
+header('Content-Type: application/json');
+echo json_encode($_SESSION['song']);

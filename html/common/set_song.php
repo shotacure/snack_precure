@@ -86,3 +86,7 @@ switch ($_SESSION['song']['series']['id']) {
     default:
         $_SESSION['song']['css'] = null;
 }
+
+// データ出力
+header('Content-Type: application/json');
+echo json_encode($_SESSION['song']);
