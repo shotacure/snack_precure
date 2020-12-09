@@ -77,4 +77,4 @@ switch ($_SESSION['music']['series']['id']) {
 
 // データ出力
 header('Content-Type: application/json');
-echo json_encode($_SESSION['music']);
+echo json_encode($_SESSION);

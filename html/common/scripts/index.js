@@ -178,7 +178,7 @@ $(() => {
             data: arg,
         })
         .done((data) => {
-            setNext(data)
+            setNext(data['music'])
         })
     }
 
@@ -202,8 +202,8 @@ $(() => {
             url: './common/on_air.php',
             type: 'POST',
         })
-        .done(() => {
-            setNext(null)
+        .done((data) => {
+            setNext(data['music'])
             clear_song()
             clear_bgm()
         })
@@ -216,7 +216,7 @@ $(() => {
             type: 'POST',
         })
         .done((data) => {
-            setNext(data)
+            setNext(data['music'])
             clear_song()
             clear_bgm()
         })
@@ -230,64 +230,56 @@ $(() => {
      * NEXT表示
      */
     setNext = (data) => {
-        if (data != null) {
-            // シリーズ
-            if (data['series'] != null) {
-                next_series = data['series']['year'] + ' 『' + data['series']['name']  + '』'
-            } else {
-                next_series = ''
-            }
-
-            // ディスク
-            if (data['disc'] != null) {
-                next_disc = '「' + data['disc']['title'] + '」'
-            } else {
-                next_disc = ''
-            }
-
-            // タイトル
-            if (data['song']['title'] != '') {
-                next_title = data['song']['title']
-            } else {
-                next_title = ''
-            }
-
-            // Mナンバー
-            if (data['song']['mno'] != '') {
-                if (data['song']['menu'] != '') {
-                    next_mno = '(' + data['song']['mno'] + ' [' + data['song']['menu'] + '])'
-                } else {
-                    next_mno = '(' + data['song']['mno'] + ')'
-                }
-            } else {
-                next_mno = ''
-            }
-
-            // アーティスト
-            if (data['song']['artist'] != '') {
-                next_artist = data['song']['artist']
-            }
-            else if (data['song']['composer'] != '') {
-                if (data['song']['composer'] == data['song']['arranger']) {
-                    next_artist = '音楽: ' + data['song']['composer']
-                } else {
-                    next_artist = '音楽: ' + data['song']['arranger'] + ' (作曲: ' + data['song']['composer'] + ')'
-                }
-            } else {
-                next_artist = ''
-            }
-
-            $('#next_series').html(next_series)
-            $('#next_disc').html(next_disc)
-            $('#next_title').html(next_title)
-            $('#next_mno').html(next_mno)
-            $('#next_artist').html(next_artist)
+        // シリーズ
+        if (data['series']['name'] != '') {
+            next_series = data['series']['year'] + ' 『' + data['series']['name']  + '』'
         } else {
-            $('#next_series').html('')
-            $('#next_disc').html('')
-            $('#next_title').html('')
-            $('#next_mno').html('')
-            $('#next_artist').html('')
+            next_series = ''
         }
+
+        // ディスク
+        if (data['disc']['title'] != '') {
+            next_disc = '「' + data['disc']['title'] + '」'
+        } else {
+            next_disc = ''
+        }
+
+        // タイトル
+        if (data['song']['title'] != '') {
+            next_title = data['song']['title']
+        } else {
+            next_title = ''
+        }
+
+        // Mナンバー
+        if (data['song']['mno'] != '') {
+            if (data['song']['menu'] != '') {
+                next_mno = '(' + data['song']['mno'] + ' [' + data['song']['menu'] + '])'
+            } else {
+                next_mno = '(' + data['song']['mno'] + ')'
+            }
+        } else {
+            next_mno = ''
+        }
+
+        // アーティスト
+        if (data['song']['artist'] != '') {
+            next_artist = data['song']['artist']
+        }
+        else if (data['song']['composer'] != '') {
+            if (data['song']['composer'] == data['song']['arranger']) {
+                next_artist = '音楽: ' + data['song']['composer']
+            } else {
+                next_artist = '音楽: ' + data['song']['arranger'] + ' (作曲: ' + data['song']['composer'] + ')'
+            }
+        } else {
+            next_artist = ''
+        }
+
+        $('#next_series').html(next_series)
+        $('#next_disc').html(next_disc)
+        $('#next_title').html(next_title)
+        $('#next_mno').html(next_mno)
+        $('#next_artist').html(next_artist)
     }
 })

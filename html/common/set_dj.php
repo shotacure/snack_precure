@@ -21,4 +21,4 @@ $_SESSION['dj']['corner'] = $_POST['dj_corner'];
 
 // データ出力
 header('Content-Type: application/json');
-echo json_encode($_SESSION['dj']);
+echo json_encode($_SESSION);
