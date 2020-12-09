@@ -109,7 +109,6 @@ $(() => {
         $('#song_id').val('')
         $('#song_id option').remove()
         $('#song_id').prop('disabled', true)
-        clearData()
     }
     
     // 劇伴クリア
@@ -120,7 +119,6 @@ $(() => {
         $('#bgm_id').val('')
         $('#bgm_id option').remove()
         $('#bgm_id').prop('disabled', true)
-        clearData()
     }
 
     /**
@@ -190,20 +188,13 @@ $(() => {
     $('#clear').click(() => {
         clear_song()
         clear_bgm()
-        clearData()
+        $.ajax({
+            url: './common/clear.php',
+            type: 'POST',
+        })
         $.ajax({
             url: './common/on_air.php',
             type: 'POST',
         })
     })
-
-    /**
-     * データクリア
-     */
-    clearData = () => {
-        $.ajax({
-            url: './common/clear.php',
-            type: 'POST',
-        })
-    }
 })

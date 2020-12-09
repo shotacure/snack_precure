@@ -51,18 +51,6 @@ if ($class === 'song' && !empty($id)) {
 
     // 歌曲系は空にする
     $_SESSION['song']['artist'] = '';    
-} else {
-    // ブランク時は空にする
-    $_SESSION['song']['series']['id'] = '';
-    $_SESSION['song']['series']['year'] = '';
-    $_SESSION['song']['series']['name'] = '';
-    $_SESSION['song']['album'] = '';
-    $_SESSION['song']['title'] = '';
-    $_SESSION['song']['artist'] = '';
-    $_SESSION['song']['mno'] = '';
-    $_SESSION['song']['menu'] = '';
-    $_SESSION['song']['composer'] = '';
-    $_SESSION['song']['arranger'] = '';
 }
 
 // フォント変更
