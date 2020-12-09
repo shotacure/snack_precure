@@ -12,3 +12,7 @@ session_start();
 
 // 更新フラグ
 $_SESSION['updated'] = '1';
+
+// データ出力
+header('Content-Type: application/json');
+echo json_encode($_SESSION);

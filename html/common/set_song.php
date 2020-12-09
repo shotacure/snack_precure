@@ -22,7 +22,6 @@ if ($class === 'song' && !empty($id)) {
     $song = $data->getSongData($id);
 
     // 取得データをセッションに入れる
-    $_SESSION['song']['id'] = $song['song_id'];
     $_SESSION['song']['series']['id'] = $song['series_id'];
     $_SESSION['song']['series']['year'] = mb_substr($song['series_id'], 0, 4);
     $_SESSION['song']['series']['name'] = $song['series_title'];
@@ -40,7 +39,6 @@ if ($class === 'song' && !empty($id)) {
     $bgm = $data->getBGMData($id);
 
     // 取得データをセッションに入れる
-    $_SESSION['song']['id'] = $bgm['disc_id'] . '_' . $bgm['track_no'];
     $_SESSION['song']['series']['id'] = $bgm['series_id'];
     $_SESSION['song']['series']['year'] = mb_substr($bgm['series_id'], 0, 4);
     $_SESSION['song']['series']['name'] = $bgm['series_title'];
@@ -55,7 +53,6 @@ if ($class === 'song' && !empty($id)) {
     $_SESSION['song']['artist'] = '';    
 } else {
     // ブランク時は空にする
-    $_SESSION['song']['id'] = '';
     $_SESSION['song']['series']['id'] = '';
     $_SESSION['song']['series']['year'] = '';
     $_SESSION['song']['series']['name'] = '';
@@ -69,18 +66,27 @@ if ($class === 'song' && !empty($id)) {
 }
 
 // フォント変更
-if ($_SESSION['song']['series']['id'] == '20150201' || $_SESSION['song']['series']['id'] == '20151031') {
-    $_SESSION['song']['css'] = 'goprincess';
+switch ($_SESSION['song']['series']['id']) {
+    case '20150201':
+    case '20151031':
+        $_SESSION['song']['css'] = 'goprincess';
+        break;
+    case '20160207':
+    case '20161029':
+        $_SESSION['song']['css'] = 'maho';
+        break;
+    case '20170205':
+    case '20171028':
+        $_SESSION['song']['css'] = 'alamode';
+        break;
+    case '20190203':
+    case '20191019':
+        $_SESSION['song']['css'] = 'startwinkle';
+        break;
+    default:
+        $_SESSION['song']['css'] = null;
 }
-elseif ($_SESSION['song']['series']['id'] == '20160207' || $_SESSION['song']['series']['id'] == '20161029') {
-    $_SESSION['song']['css'] = 'maho';
-}
-elseif ($_SESSION['song']['series']['id'] == '20170205' || $_SESSION['song']['series']['id'] == '20171028') {
-    $_SESSION['song']['css'] = 'alamode';
-}
-elseif ($_SESSION['song']['series']['id'] == '20190203' || $_SESSION['song']['series']['id'] == '20191019') {
-    $_SESSION['song']['css'] = 'startwinkle';
-}
-else {
-    $_SESSION['song']['css'] = null;
-}
+
+// データ出力
+header('Content-Type: application/json');
+echo json_encode($_SESSION['song']);

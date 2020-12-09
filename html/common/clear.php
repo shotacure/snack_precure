@@ -11,7 +11,6 @@ session_set_cookie_params(SESSION_LIFETIME);
 session_start();
 
 // セッションを空にする
-$_SESSION['song']['id'] = '';
 $_SESSION['song']['series']['id'] = '';
 $_SESSION['song']['series']['year'] = '';
 $_SESSION['song']['series']['name'] = '';
@@ -22,3 +21,7 @@ $_SESSION['song']['mno'] = '';
 $_SESSION['song']['menu'] = '';
 $_SESSION['song']['composer'] = '';
 $_SESSION['song']['arranger'] = '';
+
+// データ出力
+header('Content-Type: application/json');
+echo json_encode($_SESSION['song']);

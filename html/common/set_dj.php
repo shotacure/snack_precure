@@ -18,3 +18,7 @@ $_SESSION['dj']['current']['name'] = $_POST['dj_current_name'];
 $_SESSION['dj']['next']['name'] = $_POST['dj_next_name'];
 $_SESSION['dj']['next']['time'] = $_POST['dj_next_time'];
 $_SESSION['dj']['corner'] = $_POST['dj_corner'];
+
+// データ出力
+header('Content-Type: application/json');
+echo json_encode($_SESSION['dj']);
