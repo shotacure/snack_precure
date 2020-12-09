@@ -11,17 +11,17 @@ session_set_cookie_params(SESSION_LIFETIME);
 session_start();
 
 // セッションを空にする
-$_SESSION['song']['series']['id'] = '';
-$_SESSION['song']['series']['year'] = '';
-$_SESSION['song']['series']['name'] = '';
-$_SESSION['song']['album'] = '';
-$_SESSION['song']['title'] = '';
-$_SESSION['song']['artist'] = '';
-$_SESSION['song']['mno'] = '';
-$_SESSION['song']['menu'] = '';
-$_SESSION['song']['composer'] = '';
-$_SESSION['song']['arranger'] = '';
+$_SESSION['music']['series']['id'] = '';
+$_SESSION['music']['series']['year'] = '';
+$_SESSION['music']['series']['name'] = '';
+$_SESSION['music']['disc']['title'] = '';
+$_SESSION['music']['song']['title'] = '';
+$_SESSION['music']['song']['artist'] = '';
+$_SESSION['music']['song']['mno'] = '';
+$_SESSION['music']['song']['menu'] = '';
+$_SESSION['music']['song']['composer'] = '';
+$_SESSION['music']['song']['arranger'] = '';
 
 // データ出力
 header('Content-Type: application/json');
-echo json_encode($_SESSION['song']);
+echo json_encode($_SESSION['music']);

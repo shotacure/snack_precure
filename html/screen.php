@@ -23,44 +23,44 @@ session_start();
             <div class="screen-inner">
                 <div id="left-top">
                     <div id="song-series" class="screen-title">
-                        <?php if (!empty($_SESSION['song']['series']['name'])) : ?> 
-                        <?= $_SESSION['song']['series']['year'] ?> 『<?= $_SESSION['song']['series']['name'] ?>』
+                        <?php if (!empty($_SESSION['music']['series']['name'])) : ?> 
+                        <?= $_SESSION['music']['series']['year'] ?> 『<?= $_SESSION['music']['series']['name'] ?>』
                         <?php endif; ?> 
                     </div>
                     <div id="song-album" class="screen-title">
-                        <?php if (!empty($_SESSION['song']['album'])) : ?> 
-                        「<?= $_SESSION['song']['album'] ?>」
+                        <?php if (!empty($_SESSION['music']['disc']['title'])) : ?> 
+                        「<?= $_SESSION['music']['disc']['title'] ?>」
                         <?php endif; ?> 
                     </div>
                     <div id="song-special" class="screen-title">
-                        <?php if (strpos($_SESSION['song']['arranger'], '寺田志保') !== false) : ?> 
+                        <?php if (strpos($_SESSION['music']['song']['arranger'], '寺田志保') !== false) : ?> 
                         「ヒーリングっど♥プリキュア オリジナル・サウンドトラック2<br>プリキュア・サウンド・オアシス!!」 12月23日(水) 発売！
                         <?php endif; ?> 
                     </div>
                 </div>
                 <div id="left-bottom">
-                <div id="song-title" class="screen-title <?= $_SESSION['song']['css'] ?>">
-                        <?php if (!empty($_SESSION['song']['title'])) : ?> 
-                        <?= $_SESSION['song']['title'] ?>
+                <div id="song-title" class="screen-title <?= $_SESSION['music']['song']['css'] ?>">
+                        <?php if (!empty($_SESSION['music']['song']['title'])) : ?> 
+                        <?= $_SESSION['music']['song']['title'] ?>
                         <?php endif; ?> 
                     </div>
-                    <div id="song-mno" class="screen-title <?= $_SESSION['song']['css'] ?>">
-                        <?php if (!empty($_SESSION['song']['mno'])) : ?>
-                            <?php if (!empty($_SESSION['song']['menu'])) : ?>
-                            (<?= $_SESSION['song']['mno'] ?> [<?= $_SESSION['song']['menu'] ?>])
+                    <div id="song-mno" class="screen-title <?= $_SESSION['music']['song']['css'] ?>">
+                        <?php if (!empty($_SESSION['music']['song']['mno'])) : ?>
+                            <?php if (!empty($_SESSION['music']['song']['menu'])) : ?>
+                            (<?= $_SESSION['music']['song']['mno'] ?> [<?= $_SESSION['music']['song']['menu'] ?>])
                             <?php else : ?>
-                                (<?= $_SESSION['song']['mno'] ?>)
+                                (<?= $_SESSION['music']['song']['mno'] ?>)
                             <?php endif; ?> 
                         <?php endif; ?> 
                     </div>
-                    <div id="song-artist" class="screen-title <?= $_SESSION['song']['css'] ?>">
-                        <?php if (!empty($_SESSION['song']['artist'])) : ?> 
-                        <?= $_SESSION['song']['artist'] ?>
-                        <?php elseif (!empty($_SESSION['song']['composer'])) : ?> 
-                            <?php if ($_SESSION['song']['composer'] === $_SESSION['song']['arranger']) : ?>
-                            音楽: <?= $_SESSION['song']['composer'] ?>
+                    <div id="song-artist" class="screen-title <?= $_SESSION['music']['song']['css'] ?>">
+                        <?php if (!empty($_SESSION['music']['song']['artist'])) : ?> 
+                        <?= $_SESSION['music']['song']['artist'] ?>
+                        <?php elseif (!empty($_SESSION['music']['song']['composer'])) : ?> 
+                            <?php if ($_SESSION['music']['song']['composer'] === $_SESSION['music']['song']['arranger']) : ?>
+                            音楽: <?= $_SESSION['music']['song']['composer'] ?>
                             <?php else : ?>
-                            音楽: <?= $_SESSION['song']['arranger'] ?> (作曲: <?= $_SESSION['song']['composer'] ?>)
+                            音楽: <?= $_SESSION['music']['song']['arranger'] ?> (作曲: <?= $_SESSION['music']['song']['composer'] ?>)
                             <?php endif; ?> 
                         <?php endif; ?> 
                     </div>
@@ -89,7 +89,7 @@ session_start();
                 </div>
                 <div id="right-bottom">
                     <div id="artist-special" class="screen-title">
-                        <?php if (strpos($_SESSION['song']['artist'], '北川理恵') !== false) : ?>
+                        <?php if (strpos($_SESSION['music']['song']['artist'], '北川理恵') !== false) : ?>
                         「MY toybox～Rie Kitagawa<br>プリキュアソングコレクション～」<br>好評発売中！
                         <?php endif; ?> 
                     </div>

@@ -22,59 +22,59 @@ if ($class === 'song' && !empty($id)) {
     $song = $data->getSongData($id);
 
     // 取得データをセッションに入れる
-    $_SESSION['song']['series']['id'] = $song['series_id'];
-    $_SESSION['song']['series']['year'] = mb_substr($song['series_id'], 0, 4);
-    $_SESSION['song']['series']['name'] = $song['series_title'];
-    $_SESSION['song']['album'] = $song['disc_title'];
-    $_SESSION['song']['title'] = $song['song_title'];
-    $_SESSION['song']['artist'] = $song['singer_name'];
+    $_SESSION['music']['series']['id'] = $song['series_id'];
+    $_SESSION['music']['series']['year'] = mb_substr($song['series_id'], 0, 4);
+    $_SESSION['music']['series']['name'] = $song['series_title'];
+    $_SESSION['music']['disc']['title'] = $song['disc_title'];
+    $_SESSION['music']['song']['title'] = $song['song_title'];
+    $_SESSION['music']['song']['artist'] = $song['singer_name'];
 
     // 劇伴系は空にする
-    $_SESSION['song']['mno'] = '';
-    $_SESSION['song']['menu'] = '';
-    $_SESSION['song']['composer'] = '';
-    $_SESSION['song']['arranger'] = '';    
+    $_SESSION['music']['song']['mno'] = '';
+    $_SESSION['music']['song']['menu'] = '';
+    $_SESSION['music']['song']['composer'] = '';
+    $_SESSION['music']['song']['arranger'] = '';    
 } elseif ($class === 'bgm' && !empty($id)) {
     // 劇伴
     $bgm = $data->getBGMData($id);
 
     // 取得データをセッションに入れる
-    $_SESSION['song']['series']['id'] = $bgm['series_id'];
-    $_SESSION['song']['series']['year'] = mb_substr($bgm['series_id'], 0, 4);
-    $_SESSION['song']['series']['name'] = $bgm['series_title'];
-    $_SESSION['song']['album'] = $bgm['disc_title'];
-    $_SESSION['song']['title'] = '♪' . $bgm['track_title'];
-    $_SESSION['song']['mno'] = $bgm['m_no_detail'];
-    $_SESSION['song']['menu'] = $bgm['menu'];
-    $_SESSION['song']['composer'] = $bgm['composer_name'];
-    $_SESSION['song']['arranger'] = $bgm['arranger_name'];
+    $_SESSION['music']['series']['id'] = $bgm['series_id'];
+    $_SESSION['music']['series']['year'] = mb_substr($bgm['series_id'], 0, 4);
+    $_SESSION['music']['series']['name'] = $bgm['series_title'];
+    $_SESSION['music']['disc']['title'] = $bgm['disc_title'];
+    $_SESSION['music']['song']['title'] = '♪' . $bgm['track_title'];
+    $_SESSION['music']['song']['mno'] = $bgm['m_no_detail'];
+    $_SESSION['music']['song']['menu'] = $bgm['menu'];
+    $_SESSION['music']['song']['composer'] = $bgm['composer_name'];
+    $_SESSION['music']['song']['arranger'] = $bgm['arranger_name'];
 
     // 歌曲系は空にする
-    $_SESSION['song']['artist'] = '';    
+    $_SESSION['music']['song']['artist'] = '';    
 }
 
 // フォント変更
-switch ($_SESSION['song']['series']['id']) {
+switch ($_SESSION['music']['series']['id']) {
     case '20150201':
     case '20151031':
-        $_SESSION['song']['css'] = 'goprincess';
+        $_SESSION['music']['song']['css'] = 'goprincess';
         break;
     case '20160207':
     case '20161029':
-        $_SESSION['song']['css'] = 'maho';
+        $_SESSION['music']['song']['css'] = 'maho';
         break;
     case '20170205':
     case '20171028':
-        $_SESSION['song']['css'] = 'alamode';
+        $_SESSION['music']['song']['css'] = 'alamode';
         break;
     case '20190203':
     case '20191019':
-        $_SESSION['song']['css'] = 'startwinkle';
+        $_SESSION['music']['song']['css'] = 'startwinkle';
         break;
     default:
-        $_SESSION['song']['css'] = null;
+        $_SESSION['music']['song']['css'] = '';
 }
 
 // データ出力
 header('Content-Type: application/json');
-echo json_encode($_SESSION['song']);
+echo json_encode($_SESSION['music']);
