@@ -69,18 +69,23 @@ if ($class === 'song' && !empty($id)) {
 }
 
 // フォント変更
-if ($_SESSION['song']['series']['id'] == '20150201' || $_SESSION['song']['series']['id'] == '20151031') {
-    $_SESSION['song']['css'] = 'goprincess';
-}
-elseif ($_SESSION['song']['series']['id'] == '20160207' || $_SESSION['song']['series']['id'] == '20161029') {
-    $_SESSION['song']['css'] = 'maho';
-}
-elseif ($_SESSION['song']['series']['id'] == '20170205' || $_SESSION['song']['series']['id'] == '20171028') {
-    $_SESSION['song']['css'] = 'alamode';
-}
-elseif ($_SESSION['song']['series']['id'] == '20190203' || $_SESSION['song']['series']['id'] == '20191019') {
-    $_SESSION['song']['css'] = 'startwinkle';
-}
-else {
-    $_SESSION['song']['css'] = null;
+switch ($_SESSION['song']['series']['id']) {
+    case '20150201':
+    case '20151031':
+        $_SESSION['song']['css'] = 'goprincess';
+        break;
+    case '20160207':
+    case '20161029':
+        $_SESSION['song']['css'] = 'maho';
+        break;
+    case '20170205':
+    case '20171028':
+        $_SESSION['song']['css'] = 'alamode';
+        break;
+    case '20190203':
+    case '20191019':
+        $_SESSION['song']['css'] = 'startwinkle';
+        break;
+    default:
+        $_SESSION['song']['css'] = null;
 }
