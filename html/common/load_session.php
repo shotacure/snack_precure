@@ -13,20 +13,20 @@ session_start();
 // セッション初期化
 if ($_SESSION['music'] == null) {
     // セッション初期化
-    $_SESSION['music']['series']['id'] = '';
-    $_SESSION['music']['series']['year'] = '';
-    $_SESSION['music']['series']['name'] = '';
-    $_SESSION['music']['disc']['title'] = '';
-    $_SESSION['music']['song']['title'] = '';
-    $_SESSION['music']['song']['artist'] = '';
-    $_SESSION['music']['song']['mno'] = '';
-    $_SESSION['music']['song']['menu'] = '';
-    $_SESSION['music']['song']['composer'] = '';
-    $_SESSION['music']['song']['arranger'] = '';   
+    $_SESSION['music']['series'] = '';
+    $_SESSION['music']['disc'] = '';
+    $_SESSION['music']['title'] = '';
+    $_SESSION['music']['mno'] = '';
+    $_SESSION['music']['artist'] = '';
     $_SESSION['dj']['current']['name'] = '';
+    $_SESSION['dj']['current']['html'] = '';
     $_SESSION['dj']['next']['name'] = '';
     $_SESSION['dj']['next']['time'] = '';
-    $_SESSION['dj']['corner'] = '';
+    $_SESSION['dj']['next']['html'] = '';
+    $_SESSION['dj']['corner']['id'] = '';
+    $_SESSION['dj']['corner']['html'] = '';
+    $_SESSION['dj']['hashtag'] = '';
+    $_SESSION['updated'] = '0';
 }
 
 // データ出力

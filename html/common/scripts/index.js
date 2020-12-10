@@ -2,17 +2,19 @@ $(() => {
     // 初期処理
     $.ajax({
         url: './common/load_session.php',
-        type: 'POST',
+        type: 'GET',
+        cache: false,
+        dataType:'json',
     })
     .done((data) => {
         if (data['dj'] != null) {
             $('#dj_current_name').val(data['dj']['current']['name'])
             $('#dj_next_name').val(data['dj']['next']['name'])
             $('#dj_next_time').val(data['dj']['next']['time'])
-            $('#dj_corner').val(data['dj']['corner'])
+            $('#dj_corner').val(data['dj']['corner']['id'])
         }
         if (data['music'] != null) {
-            setNext(data['music'])
+            setNext(data)
         }
     })
 
@@ -178,7 +180,7 @@ $(() => {
             data: arg,
         })
         .done((data) => {
-            setNext(data['music'])
+            setNext(data)
         })
     }
 
@@ -203,7 +205,7 @@ $(() => {
             type: 'POST',
         })
         .done((data) => {
-            setNext(data['music'])
+            setNext(data)
         })
     })
 
@@ -214,13 +216,9 @@ $(() => {
             type: 'POST',
         })
         .done((data) => {
-            setNext(data['music'])
+            setNext(data)
             clear_song()
             clear_bgm()
-        })
-        $.ajax({
-            url: './common/on_air.php',
-            type: 'POST',
         })
     })
 
@@ -228,56 +226,10 @@ $(() => {
      * NEXT表示
      */
     setNext = (data) => {
-        // シリーズ
-        if (data['series']['name'] != '') {
-            next_series = data['series']['year'] + ' 『' + data['series']['name']  + '』'
-        } else {
-            next_series = ''
-        }
-
-        // ディスク
-        if (data['disc']['title'] != '') {
-            next_disc = '「' + data['disc']['title'] + '」'
-        } else {
-            next_disc = ''
-        }
-
-        // タイトル
-        if (data['song']['title'] != '') {
-            next_title = data['song']['title']
-        } else {
-            next_title = ''
-        }
-
-        // Mナンバー
-        if (data['song']['mno'] != '') {
-            if (data['song']['menu'] != '') {
-                next_mno = '(' + data['song']['mno'] + ' [' + data['song']['menu'] + '])'
-            } else {
-                next_mno = '(' + data['song']['mno'] + ')'
-            }
-        } else {
-            next_mno = ''
-        }
-
-        // アーティスト
-        if (data['song']['artist'] != '') {
-            next_artist = data['song']['artist']
-        }
-        else if (data['song']['composer'] != '') {
-            if (data['song']['composer'] == data['song']['arranger']) {
-                next_artist = '音楽: ' + data['song']['composer']
-            } else {
-                next_artist = '音楽: ' + data['song']['arranger'] + ' (作曲: ' + data['song']['composer'] + ')'
-            }
-        } else {
-            next_artist = ''
-        }
-
-        $('#next_series').html(next_series)
-        $('#next_disc').html(next_disc)
-        $('#next_title').html(next_title)
-        $('#next_mno').html(next_mno)
-        $('#next_artist').html(next_artist)
+        $('#next_series').html(data['music']['series'])
+        $('#next_disc').html(data['music']['disc'])
+        $('#next_title').html(data['music']['title'])
+        $('#next_mno').html(data['music']['mno'])
+        $('#next_artist').html(data['music']['artist'])
     }
 })
