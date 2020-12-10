@@ -6,10 +6,6 @@ require_once __DIR__ . '/common/config.php';
 // データクラス読み込み
 require_once __DIR__ . '/common/data.php';
 
-// セッションスタート
-session_set_cookie_params(SESSION_LIFETIME);
-session_start();
-
 // インスタンス
 $data = new PrecureMusicData();
 
@@ -113,7 +109,7 @@ $data = new PrecureMusicData();
                                         <select id="dj_current_name" name="dj_current_name" class="form-control dj_data">
                                             <option value=""></option>
                                             <? foreach(DJ_LIST as $dj_current_name) : ?>
-                                            <option value="<?= $dj_current_name ?>"<?= $dj_current_name === $_SESSION['dj']['current']['name'] ? ' selected' : '' ?>><?= $dj_current_name ?></option>
+                                            <option value="<?= $dj_current_name ?>"><?= $dj_current_name ?></option>
                                             <? endforeach; ?>
                                         </select>
                                     </div>
@@ -122,7 +118,7 @@ $data = new PrecureMusicData();
                                         <select id="dj_corner" name="dj_corner" class="form-control dj_data">
                                             <option value=""></option>
                                             <? foreach(CORNER_LIST as $dj_corner_id => $dj_corner_name) : ?>
-                                            <option value="<?= $dj_corner_id ?>"<?= $dj_corner_id === $_SESSION['dj']['corner'] ? ' selected' : '' ?>><?= $dj_corner_name ?></option>
+                                            <option value="<?= $dj_corner_id ?>"><?= $dj_corner_name ?></option>
                                             <? endforeach; ?>
                                         </select>
                                     </div>
@@ -133,16 +129,33 @@ $data = new PrecureMusicData();
                                         <select id="dj_next_name" name="dj_next_name" class="form-control dj_data">
                                             <option value=""></option>
                                             <? foreach(DJ_LIST as $dj_next_name) : ?>
-                                            <option value="<?= $dj_next_name ?>"<?= $dj_next_name === $_SESSION['dj']['next']['name'] ? ' selected' : '' ?>><?= $dj_next_name ?></option>
+                                            <option value="<?= $dj_next_name ?>"><?= $dj_next_name ?></option>
                                             <? endforeach; ?>
                                         </select>
                                     </div>
                                     <label class="control-label col-md-2">次DJ時間</label>
                                     <div class="col-md-3">
-                                        <input type="text" id="dj_next_time" name="dj_next_time" placeholder="15:00" class="form-control dj_data" value="<?= $_SESSION['dj']['next']['time'] ?>">
+                                        <input type="text" id="dj_next_time" name="dj_next_time" placeholder="15:00" class="form-control dj_data" value="">
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h4 class="panel-title pointer"><i class="glyphicon glyphicon-facetime-video"></i> NEXT</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div>
+                            <small><span id="next_series"></span>
+                            <span id="next_disc"></span></small>
+                        </div>
+                        <div>
+                            <span id="next_title"></span><span id="next_mno"></span>
+                        </div>
+                        <div>
+                            <small><span id="next_artist"></span></small>
                         </div>
                     </div>
                 </div>

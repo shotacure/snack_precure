@@ -1,4 +1,23 @@
 $(() => {
+    // 初期処理
+    $.ajax({
+        url: './common/load_session.php',
+        type: 'GET',
+        cache: false,
+        dataType:'json',
+    })
+    .done((data) => {
+        if (data['dj'] != null) {
+            $('#dj_current_name').val(data['dj']['current']['name'])
+            $('#dj_next_name').val(data['dj']['next']['name'])
+            $('#dj_next_time').val(data['dj']['next']['time'])
+            $('#dj_corner').val(data['dj']['corner']['id'])
+        }
+        if (data['music'] != null) {
+            setNext(data)
+        }
+    })
+
     // 歌曲シリーズリスト
     $('#song_series_id').change(() => {
         $('#song_id option').remove()
@@ -109,7 +128,6 @@ $(() => {
         $('#song_id').val('')
         $('#song_id option').remove()
         $('#song_id').prop('disabled', true)
-        clearData()
     }
     
     // 劇伴クリア
@@ -120,7 +138,6 @@ $(() => {
         $('#bgm_id').val('')
         $('#bgm_id option').remove()
         $('#bgm_id').prop('disabled', true)
-        clearData()
     }
 
     /**
@@ -162,6 +179,9 @@ $(() => {
             type: 'POST',
             data: arg,
         })
+        .done((data) => {
+            setNext(data)
+        })
     }
 
     // DJ情報
@@ -184,26 +204,32 @@ $(() => {
             url: './common/on_air.php',
             type: 'POST',
         })
+        .done((data) => {
+            setNext(data)
+        })
     })
 
     // クリアボタン
     $('#clear').click(() => {
-        clear_song()
-        clear_bgm()
-        clearData()
-        $.ajax({
-            url: './common/on_air.php',
-            type: 'POST',
-        })
-    })
-
-    /**
-     * データクリア
-     */
-    clearData = () => {
         $.ajax({
             url: './common/clear.php',
             type: 'POST',
         })
+        .done((data) => {
+            setNext(data)
+            clear_song()
+            clear_bgm()
+        })
+    })
+
+    /**
+     * NEXT表示
+     */
+    setNext = (data) => {
+        $('#next_series').html(data['music']['series'])
+        $('#next_disc').html(data['music']['disc'])
+        $('#next_title').html(data['music']['title'])
+        $('#next_mno').html(data['music']['mno'])
+        $('#next_artist').html(data['music']['artist'])
     }
 })

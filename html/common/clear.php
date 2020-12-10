@@ -10,18 +10,14 @@ require_once __DIR__ . '/data.php';
 session_set_cookie_params(SESSION_LIFETIME);
 session_start();
 
-// セッションを空にする
-$_SESSION['song']['series']['id'] = '';
-$_SESSION['song']['series']['year'] = '';
-$_SESSION['song']['series']['name'] = '';
-$_SESSION['song']['album'] = '';
-$_SESSION['song']['title'] = '';
-$_SESSION['song']['artist'] = '';
-$_SESSION['song']['mno'] = '';
-$_SESSION['song']['menu'] = '';
-$_SESSION['song']['composer'] = '';
-$_SESSION['song']['arranger'] = '';
+// セッション初期化
+$_SESSION['music']['series'] = '';
+$_SESSION['music']['disc'] = '';
+$_SESSION['music']['title'] = '';
+$_SESSION['music']['mno'] = '';
+$_SESSION['music']['artist'] = '';
+$_SESSION['updated'] = '1';
 
 // データ出力
 header('Content-Type: application/json');
-echo json_encode($_SESSION['song']);
+echo json_encode($_SESSION);
