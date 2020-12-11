@@ -7,16 +7,11 @@ require_once __DIR__ . '/config.php';
 session_set_cookie_params(SESSION_LIFETIME);
 session_start();
 
-if (!isset($_SESSION['updated'])) {
+if ($_SESSION['updated'] === '1') {
+    // セッションをjson出力
+    header('Content-Type: application/json');
+    echo json_encode($_SESSION);
+
+    // 更新フラグをOFFにする
     $_SESSION['updated'] = '0';
 }
-
-// セッションをjson出力
-header('Content-type:application/json; charset=utf8');
-echo json_encode($_SESSION);
-
-// 更新フラグをOFFにする
-$_SESSION['updated'] = '0';
-
-// 終了
-exit();
