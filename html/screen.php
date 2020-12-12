@@ -50,7 +50,7 @@ session_start();
                     <div id="next" class="screen-title">
                         <?= $_SESSION['dj']['next']['html'] ?>
                     </div>
-                    <div id="dj-corner">
+                    <div id="corner">
                         <?= $_SESSION['dj']['corner']['html'] ?>
                     </div>
                     <div id="hashtag" class="screen-title">
