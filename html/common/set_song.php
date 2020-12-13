@@ -108,6 +108,11 @@ function getLeftTopSpecial($arg) {
     // ヒープリサントラ2対応
     if (strpos($arg['arranger_name'], '寺田志保') !== false) {
         return '「ヒーリングっど♥プリキュア オリジナル・サウンドトラック2<br>プリキュア・サウンド・オアシス!!」 12月23日(水) 発売！';
+    } elseif(in_array($arg['series_id'], [
+        '20200202',
+        '20201031',
+    ])) {
+        return '「ヒーリングっど♥プリキュア 感謝祭 オンライン」<br>2021年2月21日(日) 配信！';
     } else {
         return '';
     }
