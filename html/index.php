@@ -3,6 +3,16 @@
 // 設定読み込み
 require_once __DIR__ . '/common/config.php';
 
+// アクセス権限チェック
+// セッションスタート
+session_set_cookie_params(SESSION_LIFETIME);
+session_start();
+
+if (!in_array($_SESSION['screen_name'], AUTHORIZED_USER)) {
+    header('Location: ' . OAUTH_CALLBACK);
+    exit();
+}
+
 // データクラス読み込み
 require_once __DIR__ . '/common/data.php';
 
