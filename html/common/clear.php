@@ -3,12 +3,18 @@
 // 設定読み込み
 require_once __DIR__ . '/config.php';
 
-// データクラス読み込み
-require_once __DIR__ . '/data.php';
-
+// アクセス権限チェック
 // セッションスタート
 session_set_cookie_params(SESSION_LIFETIME);
 session_start();
+
+if (!in_array($_SESSION['screen_name'], AUTHORIZED_USER)) {
+    http_response_code(401);
+    exit();
+}
+
+// データクラス読み込み
+require_once __DIR__ . '/data.php';
 
 // セッション初期化
 $_SESSION['music']['series'] = '';
