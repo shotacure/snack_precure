@@ -37,6 +37,7 @@ if ($class === 'song' && !empty($id)) {
 
     $_SESSION['dj']['corner']['html'] = getCornerHTML($song);
 
+    $_SESSION['music']['righttop_special'] = getRightTopSpecial($song);
     $_SESSION['music']['rightbottom_special'] = getRightBottomSpecial($song);
 
     // 劇伴系は空にする
@@ -75,6 +76,7 @@ if ($class === 'song' && !empty($id)) {
 
     $_SESSION['dj']['corner']['html'] = getCornerHTML($bgm);
 
+    $_SESSION['music']['righttop_special'] = getRightTopSpecial($bgm);
     $_SESSION['music']['rightbottom_special'] = getRightBottomSpecial($bgm);
 
     // シリーズ固有のデザイン
@@ -137,17 +139,35 @@ function getLeftTopSpecial($arg) {
  * CornerHTMLを取得する
  */
 function getCornerHTML($arg) {
-    // プリキュア5対応
-    if (!empty($_SESSION['dj']['corner']['id']) &&
-        ($_SESSION['dj']['corner']['id'] != 'snack201213_precure5' ||
-        in_array($arg['series_id'], [
-            '20070204',
-            '20071110',
-            '20080203',
-            '20080205',
-            '20081108',
-        ]))) {
-        return '<img id="corner-img" src="./common/img/' . $_SESSION['dj']['corner']['id'] . '@0.5x.png">';
+    // if (!empty($_SESSION['dj']['corner']['id'])) {
+    //     return '<img id="corner-img" src="./common/img/' . $_SESSION['dj']['corner']['id'] . '@0.5x.png">';
+    // } else {
+    //     return '';
+    // }
+}
+
+/**
+ * 右上のスペシャルを取得する
+ */
+function getRightTopSpecial($arg) {
+    if(in_array($arg['series_id'], [
+        '20060205',
+        '20061209',
+    ])) {
+        return '『ふたりはプリキュアSplash☆Star』<br>祝・15周年！';
+    } elseif(in_array($arg['series_id'], [
+        '20110206',
+        '20110319',
+        '20110731',
+        '20111029',
+    ])) {
+        return '『スイートプリキュア♪』祝・10周年！';
+    } elseif(in_array($arg['series_id'], [
+        '20160207',
+        '20160319',
+        '20161029',
+    ])) {
+        return '『魔法つかいプリキュア！』祝・5周年！';
     } else {
         return '';
     }
@@ -157,10 +177,4 @@ function getCornerHTML($arg) {
  * 右下のスペシャルを取得する
  */
 function getRightBottomSpecial($arg) {
-    // 北川理恵さん対応
-    if (strpos($arg['singer_name'], '北川理恵') !== false) {
-        return '「MY toybox～Rie Kitagawa<br>プリキュアソングコレクション～」<br>好評発売中！';
-    } else {
-        return '';
-    }
 }
