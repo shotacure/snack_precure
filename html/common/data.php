@@ -428,8 +428,8 @@ class PrecureMusicData
         // クエリ
         $stmt = $this->mysqli->prepare("SELECT COUNT(DISTINCT music_id)
         FROM histories
-        WHERE music_id >= '491'
-            AND music_id <= '507'
+        WHERE music_id >= 491
+            AND music_id <= 507
             AND music_class = 'song'");
 
         // ステートメントを実行
