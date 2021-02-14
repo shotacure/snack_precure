@@ -383,4 +383,41 @@ class PrecureMusicData
         // 返却
         return $result;
     }
+
+    /**
+     * 楽曲履歴追加
+     */
+    public function setPlayHistory($dj, $music) {
+        // 楽曲履歴挿入ステートメント
+        $stmt = $this->mysqli->prepare("
+        INSERT INTO histories (
+            played_at,
+            current_dj,
+            music_class,
+            music_id,
+            music_series,
+            music_title
+        ) VALUES (
+            ?, ?, ?, ?, ?, ?
+        )");
+
+        $stmt->bind_param(
+            'ssssss',
+            date("Y-m-d H:i:s", time()),
+            $dj,
+            $music['data']['class'],
+            $music['data']['id'],
+            $music['data']['series'],
+            $music['title'],
+        );
+
+        // ステートメントを実行
+        $result = $stmt->execute();
+
+        // ステートメントを閉じる
+        $stmt->close();
+
+        // 返却
+        return $result;
+    }
 }

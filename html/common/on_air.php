@@ -16,6 +16,10 @@ if (!in_array($_SESSION['screen_name'], AUTHORIZED_USER)) {
     exit();
 }
 
+// 楽曲履歴
+$data = new PrecureMusicData();
+$data->setPlayHistory($_SESSION['dj']['current']['name'], $_SESSION['music']);
+
 // 更新フラグ
 $_SESSION['updated'] = '1';
 
