@@ -111,14 +111,23 @@ function getCSS($series_id) {
  * 左上のスペシャルを取得する
  */
 function getLeftTopSpecial($arg) {
-    // ヒープリサントラ2対応
-    if (strpos($arg['arranger_name'], '寺田志保') !== false) {
-        return '「ヒーリングっど♥プリキュア オリジナル・サウンドトラック2<br>プリキュア・サウンド・オアシス!!」 12月23日(水) 発売！';
+    if(in_array($arg['series_id'], [
+        '20070204',
+        '20071110',
+        '20080203',
+        '20080205',
+        '20081108',
+    ])) {
+        return '「Yes!プリキュア5&GoGo! メモリアルアルバム」4月7日(水) 発売！';
     } elseif(in_array($arg['series_id'], [
         '20200202',
         '20201031',
     ])) {
-        return '「ヒーリングっど♥プリキュア 感謝祭 オンライン」<br>2021年2月21日(日) 配信！';
+        return '「ヒーリングっど♥プリキュア 感謝祭 オンライン」2月21日(日) 配信！';
+    } elseif(in_array($arg['series_id'], [
+        '20210228',
+    ])) {
+        return '『トロピカル〜ジュ！プリキュア』主題歌シングル4月7日(水) 発売！';
     } else {
         return '';
     }
