@@ -28,6 +28,10 @@ if ($class === 'song' && !empty($id)) {
     $song = $data->getSongData($id);
 
     // 取得データをセッションに入れる
+    $_SESSION['music']['data']['class'] = $class;
+    $_SESSION['music']['data']['id'] = $id;
+    $_SESSION['music']['data']['series'] = $song['series_id'];
+
     $_SESSION['music']['series'] = mb_substr($song['series_id'], 0, 4) . ' 『' . $song['series_title'] . '』';
     $_SESSION['music']['disc'] = '「' . $song['disc_title'] . '」';
     $_SESSION['music']['lefttop_special'] = getLeftTopSpecial($song);
@@ -50,6 +54,10 @@ if ($class === 'song' && !empty($id)) {
     $bgm = $data->getBGMData($id);
 
     // 取得データをセッションに入れる
+    $_SESSION['music']['data']['class'] = $class;
+    $_SESSION['music']['data']['id'] = $id;
+    $_SESSION['music']['data']['series'] = $bgm['series_id'];
+
     $_SESSION['music']['series'] = mb_substr($bgm['series_id'], 0, 4) . ' 『' . $bgm['series_title'] . '』';
     $_SESSION['music']['disc'] = '「' . $bgm['disc_title'] . '」';
     $_SESSION['music']['lefttop_special'] = getLeftTopSpecial($bgm);
