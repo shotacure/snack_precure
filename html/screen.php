@@ -59,6 +59,9 @@ if (!in_array($_SESSION['screen_name'], AUTHORIZED_USER)) {
                     <div id="corner">
                         <?= $_SESSION['dj']['corner']['html'] ?>
                     </div>
+                    <div id="righttop_special" class="screen-title">
+                        <?= $_SESSION['music']['righttop_special'] ?>
+                    </div>
                     <div id="hashtag" class="screen-title">
                         <?= $_SESSION['dj']['hashtag'] ?>
                     </div>

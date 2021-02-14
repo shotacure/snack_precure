@@ -17,6 +17,9 @@ if (!in_array($_SESSION['screen_name'], AUTHORIZED_USER)) {
 require_once __DIR__ . '/data.php';
 
 // セッション初期化
+$_SESSION['music']['data']['class'] = '';
+$_SESSION['music']['data']['id'] = '';
+$_SESSION['music']['data']['series'] = '';
 $_SESSION['music']['series'] = '';
 $_SESSION['music']['disc'] = '';
 $_SESSION['music']['title'] = '';
