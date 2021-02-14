@@ -171,7 +171,7 @@ class PrecureMusicData
             INNER JOIN songs
                 ON series.series_id = songs.series_id
             GROUP BY series.series_id
-            ORDER BY series.series_id ASC;");
+            ORDER BY series.series_year ASC, series.series_id ASC;");
 
         // ステートメントを実行
         $stmt->execute();
@@ -377,6 +377,99 @@ class PrecureMusicData
             $result[$disc_id . '_' . $track_no] = mb_substr($series_id, 0, 4) . ': ' . (!preg_match('/^_temp_\d{6}$/', $m_no_detail) ? $m_no_detail . ' ' : '') . $track_title;
         }
 
+        // ステートメントを閉じる
+        $stmt->close();
+
+        // 返却
+        return $result;
+    }
+
+    /**
+     * 楽曲履歴追加
+     */
+    public function setPlayHistory($dj, $music) {
+        // 楽曲履歴挿入ステートメント
+        $stmt = $this->mysqli->prepare("
+        INSERT INTO histories (
+            played_at,
+            current_dj,
+            music_class,
+            music_id,
+            music_series,
+            music_title
+        ) VALUES (
+            ?, ?, ?, ?, ?, ?
+        )");
+
+        $stmt->bind_param(
+            'ssssss',
+            date("Y-m-d H:i:s", time()),
+            $dj,
+            $music['data']['class'],
+            $music['data']['id'],
+            $music['data']['series'],
+            $music['title'],
+        );
+
+        // ステートメントを実行
+        $result = $stmt->execute();
+
+        // ステートメントを閉じる
+        $stmt->close();
+
+        // 返却
+        return $result;
+    }
+
+    /**
+     * 臨時20210214 ヒープリカウンタ
+     */
+    public function getHeaPreCount() {
+        // クエリ
+        $stmt = $this->mysqli->prepare("SELECT COUNT(DISTINCT music_id)
+        FROM histories
+        WHERE music_id >= '491'
+            AND music_id <= '507'
+            AND music_class = 'song'");
+
+        // ステートメントを実行
+        $stmt->execute();
+
+        // 結果をバインド
+        $stmt->bind_result($row);
+        while ($stmt->fetch()) {
+            $result = $row;
+        }
+
+        // ステートメントを閉じる
+        $stmt->close();
+
+        // 返却
+        return $result;
+    }
+
+    /**
+     * 臨時20210214 ヒープリ楽曲一覧
+     */
+    public function getHeaPreList() {
+        // クエリ
+        $stmt = $this->mysqli->prepare("SELECT songs.song_id,
+        songs.song_title,
+        (SELECT COUNT(music_id) FROM histories WHERE music_id = songs.song_id) AS played
+        FROM songs
+        WHERE songs.song_id >= '491'
+            AND songs.song_id <= '507'
+        ORDER BY played ASC, songs.song_id ASC");
+
+        // ステートメントを実行
+        $stmt->execute();
+
+        // 結果をバインド
+        $stmt->bind_result($song_id, $song_title, $played);
+        while ($stmt->fetch()) {
+            $result[$song_id]['song_title'] = $song_title;
+            $result[$song_id]['played'] = $played;
+        }
         // ステートメントを閉じる
         $stmt->close();
 

@@ -28,6 +28,10 @@ if ($class === 'song' && !empty($id)) {
     $song = $data->getSongData($id);
 
     // 取得データをセッションに入れる
+    $_SESSION['music']['data']['class'] = $class;
+    $_SESSION['music']['data']['id'] = $id;
+    $_SESSION['music']['data']['series'] = $song['series_id'];
+
     $_SESSION['music']['series'] = mb_substr($song['series_id'], 0, 4) . ' 『' . $song['series_title'] . '』';
     $_SESSION['music']['disc'] = '「' . $song['disc_title'] . '」';
     $_SESSION['music']['lefttop_special'] = getLeftTopSpecial($song);
@@ -37,6 +41,7 @@ if ($class === 'song' && !empty($id)) {
 
     $_SESSION['dj']['corner']['html'] = getCornerHTML($song);
 
+    $_SESSION['music']['righttop_special'] = getRightTopSpecial($song);
     $_SESSION['music']['rightbottom_special'] = getRightBottomSpecial($song);
 
     // 劇伴系は空にする
@@ -49,6 +54,10 @@ if ($class === 'song' && !empty($id)) {
     $bgm = $data->getBGMData($id);
 
     // 取得データをセッションに入れる
+    $_SESSION['music']['data']['class'] = $class;
+    $_SESSION['music']['data']['id'] = $id;
+    $_SESSION['music']['data']['series'] = $bgm['series_id'];
+
     $_SESSION['music']['series'] = mb_substr($bgm['series_id'], 0, 4) . ' 『' . $bgm['series_title'] . '』';
     $_SESSION['music']['disc'] = '「' . $bgm['disc_title'] . '」';
     $_SESSION['music']['lefttop_special'] = getLeftTopSpecial($bgm);
@@ -75,6 +84,7 @@ if ($class === 'song' && !empty($id)) {
 
     $_SESSION['dj']['corner']['html'] = getCornerHTML($bgm);
 
+    $_SESSION['music']['righttop_special'] = getRightTopSpecial($bgm);
     $_SESSION['music']['rightbottom_special'] = getRightBottomSpecial($bgm);
 
     // シリーズ固有のデザイン
@@ -111,14 +121,23 @@ function getCSS($series_id) {
  * 左上のスペシャルを取得する
  */
 function getLeftTopSpecial($arg) {
-    // ヒープリサントラ2対応
-    if (strpos($arg['arranger_name'], '寺田志保') !== false) {
-        return '「ヒーリングっど♥プリキュア オリジナル・サウンドトラック2<br>プリキュア・サウンド・オアシス!!」 12月23日(水) 発売！';
+    if(in_array($arg['series_id'], [
+        '20070204',
+        '20071110',
+        '20080203',
+        '20080205',
+        '20081108',
+    ])) {
+        return '「Yes!プリキュア5&GoGo! メモリアルアルバム」4月7日(水) 発売！';
     } elseif(in_array($arg['series_id'], [
         '20200202',
         '20201031',
     ])) {
-        return '「ヒーリングっど♥プリキュア 感謝祭 オンライン」<br>2021年2月21日(日) 配信！';
+        return '「ヒーリングっど♥プリキュア 感謝祭 オンライン」2月21日(日) 配信！';
+    } elseif(in_array($arg['series_id'], [
+        '20210228',
+    ])) {
+        return '『トロピカル〜ジュ！プリキュア』主題歌シングル4月7日(水) 発売！';
     } else {
         return '';
     }
@@ -128,17 +147,35 @@ function getLeftTopSpecial($arg) {
  * CornerHTMLを取得する
  */
 function getCornerHTML($arg) {
-    // プリキュア5対応
-    if (!empty($_SESSION['dj']['corner']['id']) &&
-        ($_SESSION['dj']['corner']['id'] != 'snack201213_precure5' ||
-        in_array($arg['series_id'], [
-            '20070204',
-            '20071110',
-            '20080203',
-            '20080205',
-            '20081108',
-        ]))) {
-        return '<img id="corner-img" src="./common/img/' . $_SESSION['dj']['corner']['id'] . '@0.5x.png">';
+    // if (!empty($_SESSION['dj']['corner']['id'])) {
+    //     return '<img id="corner-img" src="./common/img/' . $_SESSION['dj']['corner']['id'] . '@0.5x.png">';
+    // } else {
+    //     return '';
+    // }
+}
+
+/**
+ * 右上のスペシャルを取得する
+ */
+function getRightTopSpecial($arg) {
+    if(in_array($arg['series_id'], [
+        '20060205',
+        '20061209',
+    ])) {
+        return '『ふたりはプリキュアSplash☆Star』<br>祝・15周年！';
+    } elseif(in_array($arg['series_id'], [
+        '20110206',
+        '20110319',
+        '20110731',
+        '20111029',
+    ])) {
+        return '『スイートプリキュア♪』祝・10周年！';
+    } elseif(in_array($arg['series_id'], [
+        '20160207',
+        '20160319',
+        '20161029',
+    ])) {
+        return '『魔法つかいプリキュア！』祝・5周年！';
     } else {
         return '';
     }
@@ -148,10 +185,4 @@ function getCornerHTML($arg) {
  * 右下のスペシャルを取得する
  */
 function getRightBottomSpecial($arg) {
-    // 北川理恵さん対応
-    if (strpos($arg['singer_name'], '北川理恵') !== false) {
-        return '「MY toybox～Rie Kitagawa<br>プリキュアソングコレクション～」<br>好評発売中！';
-    } else {
-        return '';
-    }
 }
