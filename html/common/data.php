@@ -171,7 +171,7 @@ class PrecureMusicData
             INNER JOIN songs
                 ON series.series_id = songs.series_id
             GROUP BY series.series_id
-            ORDER BY series.series_id ASC;");
+            ORDER BY series.series_year ASC, series.series_id ASC;");
 
         // ステートメントを実行
         $stmt->execute();
